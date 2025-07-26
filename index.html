@@ -1,28 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>KROWE Travel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KROWE Travel</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-    <header>
-        <h1>Welcome to KROWE Travel</h1>
-        <nav>
-            <a href="countries/greece.html">Greece</a>
-            <!-- Add more country links here -->
-        </nav>
-    </header>
-    <main>
-        <section id="map">
-            <h2>Travel Map</h2>
-            <div id="world-map" aria-label="Interactive world map highlighting visited countries."></div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 KROWE Travel. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+  <header>
+    <h1>KROWE Travel</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="countries/france.html">France</a></li>
+        <li><a href="countries/greece.html">Greece</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h2>Visited Countries Map</h2>
+    <div id="map-container">
+      <object type="image/svg+xml" data="assets/images/world-map.svg" id="interactive-map" aria-label="Interactive world map of visited countries"></object>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 KROWE Travel. All rights reserved.</p>
+  </footer>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
