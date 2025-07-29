@@ -1,0 +1,37 @@
+<!-- Option 1: Embedded SVG -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Embedded SVG Map</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Embedded Map Example</h1>
+  <div class="map-container">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">
+      <path id="GR" d="M300,400 L310,390 L320,400 Z" fill="#ccc" /> <!-- Greece -->
+      <path id="IT" d="M250,300 L260,290 L270,300 Z" fill="#ccc" /> <!-- Italy -->
+      <!-- Add more country paths here -->
+    </svg>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
+
+<!-- Option 2: External SVG -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>External SVG Map</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>External Map Example</h1>
+  <div class="map-container">
+    <object id="svgMap" type="image/svg+xml" data="world-map.svg"></object>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
