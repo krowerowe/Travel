@@ -1,82 +1,53 @@
-/* Reset and base styles */
-* {
+body {
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f4f4f4;
-  color: #222;
-  line-height: 1.6;
-  padding: 20px;
+  background: #f9f9f9 url('../images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
 }
 
 header {
-  background: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 1rem;
-  border-bottom: 1px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-header img.logo {
-  height: 60px;
+.logo {
+  height: 50px;
 }
 
 nav a {
+  margin: 0 1rem;
   text-decoration: none;
-  margin-left: 15px;
-  color: #333;
+  color: #0056b3;
   font-weight: bold;
 }
 
 main {
-  max-width: 960px;
-  margin: 20px auto;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.country-links a {
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem;
   background: #fff;
-  padding: 20px;
+  border: 2px solid #0056b3;
   border-radius: 8px;
+  text-decoration: none;
+  color: #0056b3;
+  transition: background 0.2s;
 }
 
-h1, h2 {
-  color: #2a2a2a;
-  margin-bottom: 10px;
-}
-
-img.country-photo {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 15px;
-}
-
-.country-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-footer {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #777;
-}
-
-/* SVG Map Styles */
-.map-container {
-  text-align: center;
-  margin: 40px 0;
-}
-
-svg path.visited {
-  fill: #0088cc;
-  cursor: pointer;
-  transition: fill 0.3s;
-}
-
-svg path:hover {
-  fill: #00aaff;
+.country-links a:hover {
+  background: #0056b3;
+  color: white;
 }
