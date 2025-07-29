@@ -1,4 +1,18 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const mapDiv = document.getElementById('world-map');
-    mapDiv.innerHTML = '<svg width="600" height="300" aria-hidden="true"><rect x="50" y="50" width="100" height="50" fill="orange"/><title>Greece</title></svg>';
+// Highlight visited countries and link to their pages
+document.addEventListener("DOMContentLoaded", () => {
+  const visitedCountries = {
+    GR: "greece.html",
+    IT: "italy.html"
+    // Add more as needed
+  };
+
+  Object.entries(visitedCountries).forEach(([code, url]) => {
+    const countryPath = document.querySelector(`#${code}`);
+    if (countryPath) {
+      countryPath.classList.add("visited");
+      countryPath.addEventListener("click", () => {
+        window.location.href = url;
+      });
+    }
+  });
 });
