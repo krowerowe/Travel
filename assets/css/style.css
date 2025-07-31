@@ -1,53 +1,52 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #f9f9f9 url('../images/background.jpg') no-repeat center center fixed;
+  background: url('../images/background.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #333;
 }
 
 header {
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 1rem;
+  padding: 1em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .logo {
-  height: 50px;
+  height: 60px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  margin: 0;
+  padding: 0;
 }
 
 nav a {
-  margin: 0 1rem;
   text-decoration: none;
-  color: #0056b3;
+  color: #333;
   font-weight: bold;
 }
 
+nav a.active {
+  color: #007BFF;
+}
+
 main {
-  padding: 2rem;
+  padding: 2em;
   background-color: rgba(255, 255, 255, 0.85);
-  max-width: 800px;
-  margin: 2rem auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2em;
+  border-radius: 10px;
 }
 
-.country-links a {
-  display: inline-block;
-  margin: 1rem;
-  padding: 1rem;
-  background: #fff;
-  border: 2px solid #0056b3;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #0056b3;
-  transition: background 0.2s;
-}
-
-.country-links a:hover {
-  background: #0056b3;
+footer {
+  text-align: center;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
 }
