@@ -4,30 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KROWE Travel</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Favicon links (assumes favicons are in /public/) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+  <link rel="manifest" href="public/site.webmanifest">
+  <link rel="shortcut icon" href="public/favicon.ico">
 </head>
 <body>
   <header>
-    <img src="assets/images/logo-circle.png" alt="KROWE Logo" class="logo" />
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+    <h1>KROWE Travel</h1>
+    <p class="subtitle">Postcards from Around the World</p>
   </header>
 
   <main>
-    <h1>Welcome to KROWE Travel</h1>
-    <p>Explore the world with us, one country at a time.</p>
-    <div id="world-map"></div>
+    <section class="country-grid">
+      <a href="france.html" class="country-card">
+        <img src="https://via.placeholder.com/300x200?text=France" alt="France Preview" />
+        <h2>France</h2>
+      </a>
+      <a href="greece.html" class="country-card">
+        <img src="https://via.placeholder.com/300x200?text=Greece" alt="Greece Preview" />
+        <h2>Greece</h2>
+      </a>
+      <a href="italy.html" class="country-card">
+        <img src="https://via.placeholder.com/300x200?text=Italy" alt="Italy Preview" />
+        <h2>Italy</h2>
+      </a>
+      <a href="mexico.html" class="country-card">
+        <img src="https://via.placeholder.com/300x200?text=Mexico" alt="Mexico Preview" />
+        <h2>Mexico</h2>
+      </a>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 KROWE. All rights reserved.</p>
+    <p>© 2025 KROWE Travel. All rights reserved.</p>
   </footer>
-
-  <script src="assets/js/map.js"></script>
 </body>
 </html>
