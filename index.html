@@ -1,47 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KROWE Travel</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KROWE Travel | Vintage Journeys & More</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+    <link rel="manifest" href="/public/site.webmanifest">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
 
-  <!-- Favicon links (assumes favicons are in /public/) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
-  <link rel="manifest" href="public/site.webmanifest">
-  <link rel="shortcut icon" href="public/favicon.ico">
+    <meta name="description" content="KROWE Travel, a vintage-themed website showcasing travels and selling related coloring books and journals.">
 </head>
 <body>
-  <header>
-    <h1>KROWE Travel</h1>
-    <p class="subtitle">Postcards from Around the World</p>
-  </header>
+    <header class="hero-section text-center text-white py-5">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/logo.png" alt="KROWE Travel Logo" height="40" class="d-inline-block align-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/countries/greece.html">Greece</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="hero-content mt-5 pt-5">
+            <h1 class="display-1 vintage-font">KROWE Travel</h1>
+            <p class="lead">Exploring the world, one vintage journal at a time.</p>
+        </div>
+    </header>
 
-  <main>
-    <section class="country-grid">
-      <a href="france.html" class="country-card">
-        <img src="https://via.placeholder.com/300x200?text=France" alt="France Preview" />
-        <h2>France</h2>
-      </a>
-      <a href="greece.html" class="country-card">
-        <img src="https://via.placeholder.com/300x200?text=Greece" alt="Greece Preview" />
-        <h2>Greece</h2>
-      </a>
-      <a href="italy.html" class="country-card">
-        <img src="https://via.placeholder.com/300x200?text=Italy" alt="Italy Preview" />
-        <h2>Italy</h2>
-      </a>
-      <a href="mexico.html" class="country-card">
-        <img src="https://via.placeholder.com/300x200?text=Mexico" alt="Mexico Preview" />
-        <h2>Mexico</h2>
-      </a>
-    </section>
-  </main>
+    <main class="container py-5">
+        <section class="world-map-section text-center my-5">
+            <h2 class="vintage-font">Journeys Around the Globe</h2>
+            <div id="world-map" class="my-4" aria-label="Interactive world map of visited countries">
+                </div>
+            <p class="map-note">Hover over a country to see if we've been there!</p>
+        </section>
 
-  <footer>
-    <p>© 2025 KROWE Travel. All rights reserved.</p>
-  </footer>
+        <hr class="my-5">
+
+        <section class="featured-countries my-5">
+            <h2 class="vintage-font text-center mb-4">Featured Destinations</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/greece_card.jpg" class="card-img-top" alt="A beautiful view of the Greek islands with white and blue buildings.">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title vintage-font">Greece</h5>
+                            <p class="card-text">Explore the ancient wonders and stunning islands of Greece, from Athens to Santorini.</p>
+                            <div class="mt-auto d-flex justify-content-between">
+                                <a href="/countries/greece.html" class="btn btn-vintage">Read Story</a>
+                                <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" class="btn btn-shop">Shop Journals</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/france_card.jpg" class="card-img-top" alt="The Eiffel Tower in Paris, France, at night.">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title vintage-font">France</h5>
+                            <p class="card-text">Discover the romance of Paris, the lavender fields of Provence, and the culinary delights of France.</p>
+                            <div class="mt-auto d-flex justify-content-between">
+                                <a href="/countries/france.html" class="btn btn-vintage">Read Story</a>
+                                <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" class="btn btn-shop">Shop Journals</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/italy_card.jpg" class="card-img-top" alt="The Colosseum in Rome, Italy, a grand ancient ruin.">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title vintage-font">Italy</h5>
+                            <p class="card-text">Journey through Italy's rich history, from the canals of Venice to the ruins of Rome and the beauty of the Amalfi Coast.</p>
+                            <div class="mt-auto d-flex justify-content-between">
+                                <a href="/countries/italy.html" class="btn btn-vintage">Read Story</a>
+                                <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" class="btn btn-shop">Shop Journals</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-vintage text-center py-4 mt-5" role="contentinfo">
+        <p>&copy; 2025 KROWE Travel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
