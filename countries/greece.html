@@ -1,57 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Greece - KROWE Travel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greece - KROWE Travel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png" />
-  <link rel="manifest" href="/public/site.webmanifest" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/public/android-chrome-192x192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/public/android-chrome-512x512.png" />
-  <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+    <link rel="manifest" href="/public/site.webmanifest">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/css/styles.css" />
+    <meta name="description" content="A vintage-themed travel story and guide to Greece.">
 </head>
 <body>
-  <header>
-    <img src="/assets/images/logo-circle.png" alt="KROWE Logo" class="logo" />
-    <h1>Greece</h1>
-    <p class="tagline">Discover ruins, islands, and the cradle of Western civilization.</p>
-  </header>
+    <header class="hero-section text-center text-white py-5 greece-hero">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/logo.png" alt="KROWE Travel Logo" height="40" class="d-inline-block align-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/countries/greece.html">Greece</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="hero-content mt-5 pt-5">
+            <h1 class="display-1 vintage-font">Greece</h1>
+            <p class="lead">Where ancient myths meet stunning seascapes.</p>
+        </div>
+    </header>
 
-  <main>
-    <section class="country-photos">
-      <img src="/assets/images/greece/photo1.jpg" alt="Santorini sunset" />
-      <img src="/assets/images/greece/photo2.jpg" alt="Ancient ruins in Athens" />
-      <!-- Add more images as needed -->
-    </section>
+    <main class="container py-5">
+        <section class="country-story my-5">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h2 class="vintage-font text-center mb-4">A Grecian Adventure</h2>
+                    <p>My journey through Greece was a trip back in time. I started in Athens, walking the same paths as philosophers and emperors, marveling at the Parthenon's silent beauty. The energy of the city's ancient ruins, contrasted with the vibrant modern life, was captivating.</p>
+                    <p>From the mainland, I island-hopped to Santorini, where the iconic white-washed buildings and blue domes stood perched above the caldera. The sunsets were as breathtaking as the stories. I spent my days sketching in my journal, capturing the essence of the Aegean light and the labyrinthine streets.</p>
+                </div>
+            </div>
+        </section>
 
-    <section class="city-list">
-      <h2>Cities Visited</h2>
-      <ul>
-        <li>Athens</li>
-        <li>Thessaloniki</li>
-        <!-- Add more if applicable -->
-      </ul>
-    </section>
+        <hr class="my-5">
 
-    <section class="product-links">
-      <h2>Travel Products</h2>
-      <ul>
-        <li><a href="#">Greece Travel Journal</a></li>
-        <li><a href="#">Greece Kids Coloring Book</a></li>
-        <li><a href="#">Greece Adult Coloring Book</a></li>
-      </ul>
-    </section>
-  </main>
+        <section class="product-section my-5">
+            <h2 class="vintage-font text-center mb-4">Shop Our Products</h2>
+            <div class="row justify-content-center g-4">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/greece_book.jpg" class="card-img-top" alt="Greece coloring book for adults">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title vintage-font">Greece Coloring Book</h5>
+                            <p class="card-text">Intricate illustrations of ancient ruins and island scenes for you to color.</p>
+                            <a href="https://www.amazon.com/dp/YOUR_PRODUCT_ASIN_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-shop mt-auto">Buy on Amazon</a>
+                        </div>
+                    </div>
+                </div>
 
-  <footer>
-    <p>&copy; 2025 KROWE Travel</p>
-  </footer>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/greece_kids_book.jpg" class="card-img-top" alt="Greece coloring book for kids">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title vintage-font">Kids' Greece Coloring Book</h5>
+                            <p class="card-text">Simple, fun illustrations of Greek myths and monuments for young explorers.</p>
+                            <a href="https://www.amazon.com/dp/YOUR_PRODUCT_ASIN_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-shop mt-auto">Buy on Amazon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 vintage-card">
+                        <img src="/assets/img/greece_journal.jpg" class="card-img-top" alt="Greece travel journal">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title vintage-font">The Aegean Journal</h5>
+                            <p class="card-text">A beautiful journal with prompts to capture your own Grecian adventures.</p>
+                            <a href="https://www.amazon.com/dp/YOUR_PRODUCT_ASIN_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-shop mt-auto">Buy on Amazon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-vintage text-center py-4 mt-5" role="contentinfo">
+        <p>&copy; 2025 KROWE Travel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
