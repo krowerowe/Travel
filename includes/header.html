@@ -1,41 +1,30 @@
 <header class="map-nav w-full">
-    <!-- SVG for the dotted line path. We position it absolutely to span the entire nav. -->
     <svg id="path-svg" class="dotted-path"></svg>
-
-    <!-- Nav List with all items -->
     <nav>
         <ul class="nav-list" role="tablist">
-            <!-- Nav Item: Home -->
-            <li class="nav-item" role="tab" aria-selected="true" data-tab-id="home">
-                <a href="index.html" class="nav-link">Home</a>
-                <span class="dot"></span>
-                <div class="nav-pin-container">
-                    <!-- The pin is now created with CSS instead of an SVG -->
-                    <div class="nav-pin"></div>
-                </div>
-            </li>
-
-            <!-- Nav Item: About -->
-            <li class="nav-item" role="tab" aria-selected="false" data-tab-id="about">
-                <a href="content/about.html" class="nav-link">About</a>
+            <li class="nav-item" role="tab" data-page="home">
+                <a href="?page=home" class="nav-link">Home</a>
                 <span class="dot"></span>
                 <div class="nav-pin-container">
                     <div class="nav-pin"></div>
                 </div>
             </li>
-
-            <!-- Nav Item: Services -->
-            <li class="nav-item" role="tab" aria-selected="false" data-tab-id="services">
-                <a href="content/services.html" class="nav-link">Services</a>
+            <li class="nav-item" role="tab" data-page="about">
+                <a href="?page=about" class="nav-link">About</a>
                 <span class="dot"></span>
                 <div class="nav-pin-container">
                     <div class="nav-pin"></div>
                 </div>
             </li>
-
-            <!-- Nav Item: Contact -->
-            <li class="nav-item" role="tab" aria-selected="false" data-tab-id="contact">
-                <a href="content/contact.html" class="nav-link">Contact</a>
+            <li class="nav-item" role="tab" data-page="countries">
+                <a href="?page=countries" class="nav-link">Countries</a>
+                <span class="dot"></span>
+                <div class="nav-pin-container">
+                    <div class="nav-pin"></div>
+                </div>
+            </li>
+            <li class="nav-item" role="tab" data-page="contact">
+                <a href="?page=contact" class="nav-link">Contact</a>
                 <span class="dot"></span>
                 <div class="nav-pin-container">
                     <div class="nav-pin"></div>
