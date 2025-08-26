@@ -131,4 +131,4 @@ async function initializePage() {
 }
 
 // Start the whole process when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializePage); 
+document.addEventListener('DOMContentLoaded', initializePage);
