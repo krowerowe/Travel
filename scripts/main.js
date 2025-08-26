@@ -45,7 +45,7 @@ function drawPath() {
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = 55; // Use a fixed depth for consistent arches
+        const archDepth = 60; // Slightly increased for visibility
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
@@ -54,7 +54,7 @@ function drawPath() {
 
         pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
         
-        // Update bounding box for the new points, including the control points
+        // Update bounding box for the new points
         minX = Math.min(minX, startX, endX);
         minY = Math.min(minY, startY, endY);
         maxX = Math.max(maxX, startX, endX);
@@ -63,14 +63,12 @@ function drawPath() {
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
-    // Add a small margin to the viewBox to prevent clipping of the stroke
-    const margin = 5;
-    const viewBoxX = minX - margin;
-    const viewBoxY = minY - margin;
-    const viewBoxWidth = maxX - minX + 2 * margin;
-    const viewBoxHeight = maxY - minY + 2 * margin;
+    // Set a consistent viewBox and directly set the SVG height to match
+    const viewBoxWidth = navRect.width;
+    const viewBoxHeight = maxY - minY;
 
-    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
+    pathSvg.setAttribute('viewBox', `0 ${minY} ${viewBoxWidth} ${viewBoxHeight}`);
+    pathSvg.style.height = `${viewBoxHeight}px`;
 }
 
 /**
