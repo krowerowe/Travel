@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Home Page</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Global Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS for all pages, including the nav bar */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f7fafc;
@@ -26,7 +25,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 50px 1rem 90px; /* Adjusted padding-top from 40px to 50px */
+            padding: 50px 1rem 90px;
         }
         .nav-item {
             position: relative;
@@ -55,13 +54,13 @@
         }
         .nav-pin-container {
             position: absolute;
-            top: -25px; /* Adjusted from -15px to -25px to move the pin up */
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
         }
-        .nav-item:not(.active) .nav-pin-container {
-            display: none;
+        .nav-item.active .nav-pin-container {
+            display: block;
         }
         .dotted-path {
             position: absolute;
@@ -72,11 +71,13 @@
             width: 100%;
         }
         
-        /* New CSS for the pin to replace the SVG */
+        /* Pin styling */
         .nav-pin {
             position: relative;
             width: 32px;
             height: 32px;
+            transform-origin: bottom center;
+            animation: bounce 0.5s ease-in-out infinite alternate;
         }
         .nav-pin::before {
             content: '';
@@ -100,20 +101,19 @@
             height: 12px;
             background-color: #3b82f6;
         }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-    <!-- Placeholder where the header will be loaded -->
-    <div id="header-placeholder"></div>
+    <!-- Header will be injected here -->
 
-    <!-- Placeholder for the unique content of this page -->
-    <main id="content-placeholder" class="container mx-auto p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center">
-    </main>
+    <main id="content-container" class="flex-grow"></main>
 
-    <!-- Placeholder where the footer will be loaded -->
-    <div id="footer-placeholder"></div>
+    <!-- Footer will be injected here -->
 
-    <!-- Link to the main script that loads everything -->
-    <script src="scripts/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
