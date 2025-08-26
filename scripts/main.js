@@ -27,7 +27,10 @@ function drawPath() {
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    
+    // Set a fixed SVG height to prevent clipping
+    const svgHeight = 120;
+    pathSvg.style.height = `${svgHeight}px`;
 
     // Loop through each pair of dots to create a path segment
     for (let i = 0; i < dots.length - 1; i++) {
@@ -37,10 +40,13 @@ function drawPath() {
         const startRect = startDot.getBoundingClientRect();
         const endRect = endDot.getBoundingClientRect();
 
-        // Calculate coordinates relative to the nav-list container
+        // Calculate X coordinates relative to the nav-list container
         const startX = (startRect.left + startRect.width / 2) - navRect.left;
-        const startY = (startRect.top + startRect.height / 2) - navRect.top;
         const endX = (endRect.left + endRect.width / 2) - navRect.left;
+
+        // Calculate Y coordinates relative to the top of the new, fixed-height SVG
+        // We subtract navRect.top to get a consistent y-position across resizes
+        const startY = (startRect.top + startRect.height / 2) - navRect.top;
         const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
         // Calculate control points for a downward-facing arch
@@ -53,26 +59,12 @@ function drawPath() {
         }
 
         pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
-        
-        // Update bounding box for the new points
-        minX = Math.min(minX, startX, endX, midX);
-        minY = Math.min(minY, startY, endY, controlY);
-        maxX = Math.max(maxX, startX, endX, midX);
-        maxY = Math.max(maxY, startY, endY, controlY);
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
-    // Add a small margin to prevent clipping of the stroke
-    const margin = 5;
-    const viewBoxX = minX - margin;
-    const viewBoxY = minY - margin;
-    const viewBoxWidth = maxX - minX + 2 * margin;
-    const viewBoxHeight = maxY - minY + 2 * margin;
-
-    // Set the viewBox and the SVG element's height to the calculated values
-    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-    pathSvg.style.height = `${viewBoxHeight}px`;
+    // Set a consistent viewBox
+    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${svgHeight}`);
 }
 
 /**
