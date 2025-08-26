@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Explorer</title>
-    <!-- Link to Tailwind CSS library -->
+    <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Link to the custom styles -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Link to the Inter font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Link to our custom stylesheet in the css folder -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="flex flex-col min-h-screen">
-    <!-- These divs will be filled with content from other files by main.js -->
-    <div id="header-container"></div>
-    <main id="content-container" class="flex-grow"></main>
-    <div id="footer-container"></div>
+<body class="bg-gray-100 text-gray-800">
 
-    <!-- Link to the main JavaScript file, which will load everything else -->
-    <script src="main.js"></script>
+    <!-- Header & Navigation -->
+    <header id="header-container"></header>
+
+    <!-- Main content container -->
+    <main id="content-container"></main>
+
+    <!-- Footer -->
+    <footer id="footer-container"></footer>
+
+    <!-- Link to our main JavaScript file in the js folder -->
+    <script src="js/main.js"></script>
+
 </body>
 </html>
