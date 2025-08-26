@@ -1,140 +1,131 @@
-// Function to load an HTML component into a specified placeholder
-async function loadComponent(placeholderId, filePath) {
+// --- File paths for reusable components and content ---
+const COMPONENT_PATHS = {
+    header: '/components/header.html',
+    footer: '/components/footer.html'
+};
+
+const CONTENT_PATH_BASE = '/content/';
+
+// --- Main DOM elements ---
+const contentContainer = document.getElementById('content-container');
+
+// --- Functions to load and update content ---
+
+/**
+ * Loads an HTML component from a given URL and inserts it at a specified position.
+ * @param {string} url The URL of the HTML file to fetch.
+ * @param {string} position The position relative to the body to insert the content ('afterbegin' or 'beforeend').
+ */
+async function loadComponent(url, position) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const html = await response.text();
+        document.body.insertAdjacentHTML(position, html);
+    } catch (error) {
+        console.error(`Error loading component from ${url}:`, error);
+    }
+}
+
+/**
+ * Loads the main content for a given page and inserts it into the content container.
+ * @param {string} pageName The name of the content page to load (e.g., 'home', 'about').
+ */
+async function loadContent(pageName) {
+    const filePath = `${CONTENT_PATH_BASE}${pageName}.html`;
+
     try {
         const response = await fetch(filePath);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status} for ${filePath}`);
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const html = await response.text();
-        document.getElementById(placeholderId).innerHTML = html;
-        console.log(`Successfully loaded ${filePath}`);
-    } catch (error) {
-        console.error(`Failed to load component from ${filePath}:`, error);
-    }
-}
+        const content = await response.text();
+        contentContainer.innerHTML = content;
 
-/**
- * The drawPath function recalculates and draws the SVG path
- * connecting the blue dots in the navigation bar.
- */
-function drawPath() {
-    const pathSvg = document.getElementById('path-svg');
-    const dots = document.querySelectorAll('.nav-item .dot');
-    const navList = document.querySelector('.nav-list');
-    if (!pathSvg || dots.length < 2) return;
-
-    // Get the bounding rectangle of the nav-list container to use as the reference
-    const navRect = navList.getBoundingClientRect();
-
-    let pathData = '';
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-
-    // Loop through each pair of dots to create a path segment
-    for (let i = 0; i < dots.length - 1; i++) {
-        const startDot = dots[i];
-        const endDot = dots[i + 1];
-
-        // Get the bounding rectangles of the dots
-        const startRect = startDot.getBoundingClientRect();
-        const endRect = endDot.getBoundingClientRect();
-
-        // Calculate coordinates relative to the nav-list container
-        const startX = startRect.left - navRect.left + startRect.width / 2;
-        const startY = startRect.top - navRect.top + startRect.height / 2;
-        const endX = endRect.left - navRect.left + endRect.width / 2;
-        const endY = endRect.top - navRect.top + endRect.height / 2;
-
-        // Calculate control points for a downward-facing arch
-        const midX = (startX + endX) / 2;
-        const archDepth = 50; 
-        const controlY = Math.max(startY, endY) + archDepth;
-
-        if (i === 0) {
-            pathData += `M ${startX} ${startY} `;
-        }
-
-        pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
-        
-        // Update bounding box for the new points
-        minX = Math.min(minX, startX, endX, midX);
-        minY = Math.min(minY, startY, endY, controlY);
-        maxX = Math.max(maxX, startX, endX, midX);
-        maxY = Math.max(maxY, startY, endY, controlY);
-    }
-
-    // Set the SVG path data
-    pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    
-    // Add a small margin to prevent clipping of the stroke
-    const margin = 5;
-    const viewBoxX = minX - margin;
-    const viewBoxY = minY - margin;
-    const viewBoxWidth = maxX - minX + 2 * margin;
-    const viewBoxHeight = maxY - minY + 2 * margin;
-
-    // Set the viewBox and the SVG element's dimensions and position
-    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-    pathSvg.style.width = `${viewBoxWidth}px`;
-    pathSvg.style.height = `${viewBoxHeight}px`;
-    pathSvg.style.top = `${viewBoxY}px`;
-    pathSvg.style.left = `${viewBoxX}px`;
-}
-
-/**
- * Initializes the navigation bar by setting the active state
- * and adding event listeners for clicks.
- */
-function initializeNav() {
-    const navItems = document.querySelectorAll('.nav-item');
-    let currentPath = window.location.pathname.split('/').pop();
-    
-    // Fix for the homepage URL
-    if (currentPath === '' || currentPath === '/') {
-        currentPath = 'index.html';
-    }
-
-    navItems.forEach(item => {
-        const link = item.querySelector('a');
-        if (link && link.getAttribute('href') === currentPath) {
-            item.classList.add('active');
-        } else {
+        // Reset the active state on all nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
-        }
-        
-        item.addEventListener('click', () => {
-            navItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            drawPath();
+            item.setAttribute('aria-selected', 'false');
         });
-    });
 
-    drawPath();
+        // Set the active state on the current nav item
+        const activeNavItem = document.querySelector(`.nav-item[data-page="${pageName}"]`);
+        if (activeNavItem) {
+            activeNavItem.classList.add('active');
+            activeNavItem.setAttribute('aria-selected', 'true');
+        }
+
+        // Re-run any page-specific scripts if they exist
+        const scriptElements = contentContainer.querySelectorAll('script');
+        scriptElements.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            // Copy attributes
+            for (const attr of oldScript.attributes) {
+                newScript.setAttribute(attr.name, attr.value);
+            }
+            newScript.textContent = oldScript.textContent;
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+
+    } catch (error) {
+        console.error(`Error loading content for page "${pageName}":`, error);
+        contentContainer.innerHTML = `<div class="p-8 text-center text-red-500">
+            <h1 class="text-3xl font-bold">404 - Page Not Found</h1>
+            <p class="mt-4">The page you are looking for does not exist.</p>
+        </div>`;
+    }
 }
 
 /**
- * Main function to load all page components and initialize scripts
+ * Handles navigation by updating the URL and loading new content without a full page reload.
+ * @param {Event} event The click event from a navigation link.
  */
-async function initializePage() {
-    // Determine the content file to load
-    const contentPage = window.location.pathname.split('/').pop().split('.')[0] || 'index';
-    const contentFilePath = `content/${contentPage}.html`;
+function handleNavigation(event) {
+    // Stop the browser from doing a full page refresh
+    event.preventDefault();
 
-    // Load components in parallel. The 'await' keyword ensures this finishes before continuing.
-    await Promise.all([
-        loadComponent('header-placeholder', 'includes/header.html'),
-        loadComponent('content-placeholder', contentFilePath),
-        loadComponent('footer-placeholder', 'includes/footer.html')
-    ]);
+    // Get the new page path from the link's href
+    const link = event.target.closest('a');
+    if (!link) return;
 
-    // Now that all components are loaded, we can safely initialize the navigation
-    // Add a slight delay to ensure the browser has fully rendered the elements
-    setTimeout(() => {
-        initializeNav();
-    }, 50); // 50ms delay should be sufficient
+    const href = link.getAttribute('href');
+    const urlParams = new URLSearchParams(href);
+    const page = urlParams.get('page');
 
-    // Re-draw path on window resize
-    window.addEventListener('resize', drawPath);
+    if (page) {
+        // Use the History API to change the URL without a reload
+        window.history.pushState({ page: page }, '', href);
+        // Load the new content
+        loadContent(page);
+    }
 }
 
-// Start the whole process when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializePage);
+/**
+ * Initializes the website on page load.
+ */
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Load the reusable components first
+    await loadComponent(COMPONENT_PATHS.header, 'afterbegin');
+    await loadComponent(COMPONENT_PATHS.footer, 'beforeend');
+
+    // 2. Add event listeners to the navigation links
+    const navBar = document.querySelector('.map-nav');
+    if (navBar) {
+        navBar.addEventListener('click', handleNavigation);
+    } else {
+        console.warn('Navigation bar not found. Event listeners not attached.');
+    }
+
+    // 3. Load the initial content based on the URL
+    const initialUrl = new URL(window.location.href);
+    const initialPage = initialUrl.searchParams.get('page') || 'home'; // Default to 'home'
+    loadContent(initialPage);
+
+    // 4. Handle browser back/forward button events
+    window.addEventListener('popstate', (event) => {
+        const page = event.state && event.state.page ? event.state.page : 'home';
+        loadContent(page);
+    });
+});
