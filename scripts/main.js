@@ -20,10 +20,16 @@ async function loadComponent(placeholderId, filePath) {
 function drawPath() {
     const pathSvg = document.getElementById('path-svg');
     const dots = document.querySelectorAll('.nav-item .dot');
+    const navList = document.querySelector('.nav-list');
     if (!pathSvg || dots.length < 2) return;
 
+<<<<<<< Updated upstream
     // Get the bounding box of the entire document to get absolute coordinates
     const docRect = document.body.getBoundingClientRect();
+=======
+    // Get the bounding rectangle of the nav-list container to use as the reference
+    const navRect = navList.getBoundingClientRect();
+>>>>>>> Stashed changes
 
     let pathData = '';
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -33,14 +39,23 @@ function drawPath() {
         const startDot = dots[i];
         const endDot = dots[i + 1];
 
+        // Get the bounding rectangles of the dots
         const startRect = startDot.getBoundingClientRect();
         const endRect = endDot.getBoundingClientRect();
 
+<<<<<<< Updated upstream
         // Calculate absolute coordinates relative to the top-left of the document
         const startX = startRect.left + startRect.width / 2;
         const startY = startRect.top + startRect.height / 2;
         const endX = endRect.left + endRect.width / 2;
         const endY = endRect.top + endRect.height / 2;
+=======
+        // Calculate coordinates relative to the nav-list container
+        const startX = startRect.left - navRect.left + startRect.width / 2;
+        const startY = startRect.top - navRect.top + startRect.height / 2;
+        const endX = endRect.left - navRect.left + endRect.width / 2;
+        const endY = endRect.top - navRect.top + endRect.height / 2;
+>>>>>>> Stashed changes
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
@@ -60,6 +75,7 @@ function drawPath() {
         maxY = Math.max(maxY, startY, endY, controlY);
     }
 
+    // Set the SVG path data
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
     // Add a small margin to prevent clipping of the stroke
