@@ -91,15 +91,15 @@ async function initializePage() {
     const contentPage = window.location.pathname.split('/').pop().split('.')[0] || 'index';
     const contentFilePath = `content/${contentPage}.html`;
 
-    // Load components in parallel
+    // Load components in parallel. The 'await' keyword ensures this finishes before continuing.
     await Promise.all([
         loadComponent('header-placeholder', 'includes/header.html'),
         loadComponent('content-placeholder', contentFilePath),
         loadComponent('footer-placeholder', 'includes/footer.html')
     ]);
 
-    // Give a brief delay to ensure DOM is updated before running scripts
-    setTimeout(initializeNav, 50);
+    // Now that all components are loaded, we can safely initialize the navigation
+    initializeNav();
 
     // Re-draw path on window resize
     window.addEventListener('resize', drawPath);
