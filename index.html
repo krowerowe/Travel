@@ -26,10 +26,11 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 0 1rem 60px; /* Increased padding to make room for the arch */
+            padding: 0 1rem 60px;
+            min-height: 180px;
         }
         .nav-item {
-            position: relative;
+            position: relative; /* This is the key fix for the nav pin */
             display: flex;
             flex-direction: column;
             align-items: center;
