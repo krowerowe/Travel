@@ -48,4 +48,4 @@ Travel/
 
 add setup later 
 
-https://krowerowe.github.io/Travel/countries/greece.html
+https://krowerowe.github.io/Travel/index.html
