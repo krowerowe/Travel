@@ -127,7 +127,10 @@ async function initializePage() {
     ]);
 
     // Now that all components are loaded, we can safely initialize the navigation
-    initializeNav();
+    // Add a slight delay to ensure the browser has fully rendered the elements
+    setTimeout(() => {
+        initializeNav();
+    }, 50); // 50ms delay should be sufficient
 
     // Re-draw path on window resize
     window.addEventListener('resize', drawPath);
