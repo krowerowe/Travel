@@ -45,7 +45,7 @@ function drawPath() {
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = 60; // Slightly increased for visibility
+        const archDepth = 55;
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
@@ -55,20 +55,27 @@ function drawPath() {
         pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
         
         // Update bounding box for the new points
-        minX = Math.min(minX, startX, endX);
-        minY = Math.min(minY, startY, endY);
-        maxX = Math.max(maxX, startX, endX);
+        minX = Math.min(minX, startX, endX, midX);
+        minY = Math.min(minY, startY, endY, controlY);
+        maxX = Math.max(maxX, startX, endX, midX);
         maxY = Math.max(maxY, startY, endY, controlY);
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
-    // Set a consistent viewBox and directly set the SVG height to match
-    const viewBoxWidth = navRect.width;
-    const viewBoxHeight = maxY - minY;
+    // Add a small margin to prevent clipping of the stroke
+    const margin = 5;
+    const viewBoxX = minX - margin;
+    const viewBoxY = minY - margin;
+    const viewBoxWidth = maxX - minX + 2 * margin;
+    const viewBoxHeight = maxY - minY + 2 * margin;
 
-    pathSvg.setAttribute('viewBox', `0 ${minY} ${viewBoxWidth} ${viewBoxHeight}`);
+    // Set the viewBox and the SVG element's height to the calculated values
+    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
     pathSvg.style.height = `${viewBoxHeight}px`;
+    pathSvg.style.top = `${minY - margin}px`;
+    pathSvg.style.left = `${minX - margin}px`;
+    pathSvg.style.width = `${viewBoxWidth}px`;
 }
 
 /**
@@ -77,11 +84,15 @@ function drawPath() {
  */
 function initializeNav() {
     const navItems = document.querySelectorAll('.nav-item');
-    const currentPath = window.location.pathname.split('/').pop();
+    let currentPath = window.location.pathname.split('/').pop();
+    
+    // Fix for the homepage URL
+    if (currentPath === '') {
+        currentPath = 'index.html';
+    }
 
     navItems.forEach(item => {
         const link = item.querySelector('a');
-        // Check if the link's href matches the current file name.
         if (link && link.getAttribute('href') === currentPath) {
             item.classList.add('active');
         } else {
