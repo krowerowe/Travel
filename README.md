@@ -17,19 +17,33 @@ This website serves as a personal travel blog and a storefront for KROWE Travel'
 ## File Structure
 
 Travel/
+
 ├── index.html
+
 ├── about.html
+
 ├── countries/
+
 │   ├── greece.html
+
 │   └── ... (other country pages)
+
 ├── assets/
+
 │   ├── css/styles.css
+
 │   ├── js/main.js
+
 │   ├── img/
+
 │   └── svg/world-map.svg
+
 ├── public/
+
 │   ├── favicon.ico
+
 │   └── manifest.json
+
 └── README.md
 
 add setup later 
