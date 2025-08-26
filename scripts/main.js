@@ -27,6 +27,7 @@ function drawPath() {
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
 
     // Loop through each pair of dots to create a path segment
     for (let i = 0; i < dots.length - 1; i++) {
@@ -42,9 +43,9 @@ function drawPath() {
         const endX = (endRect.left + endRect.width / 2) - navRect.left;
         const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
-        // Control points for a downward-facing arch
+        // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = Math.abs(endX - startX) * 0.5;
+        const archDepth = 50; // Use a fixed depth for consistent arches
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
@@ -52,12 +53,22 @@ function drawPath() {
         }
 
         pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
+        
+        // Update bounding box for the new points
+        minX = Math.min(minX, startX, endX);
+        minY = Math.min(minY, startY, endY);
+        maxX = Math.max(maxX, startX, endX);
+        maxY = Math.max(maxY, startY, endY, controlY);
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
     // Dynamically set the viewBox to fit the entire path
-    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
+    const viewBoxX = minX;
+    const viewBoxY = minY;
+    const viewBoxWidth = maxX - minX;
+    const viewBoxHeight = maxY - minY;
+    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
 }
 
 /**
