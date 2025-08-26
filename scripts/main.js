@@ -27,6 +27,7 @@ function drawPath() {
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
 
     // Loop through each pair of dots to create a path segment
     for (let i = 0; i < dots.length - 1; i++) {
@@ -52,12 +53,24 @@ function drawPath() {
         }
 
         pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
+        
+        // Update bounding box for the new points, including the control points
+        minX = Math.min(minX, startX, endX);
+        minY = Math.min(minY, startY, endY);
+        maxX = Math.max(maxX, startX, endX);
+        maxY = Math.max(maxY, startY, endY, controlY);
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
-    // Set a large, fixed viewBox that is guaranteed to contain the path
-    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} 200`);
+    // Add a small margin to the viewBox to prevent clipping of the stroke
+    const margin = 5;
+    const viewBoxX = minX - margin;
+    const viewBoxY = minY - margin;
+    const viewBoxWidth = maxX - minX + 2 * margin;
+    const viewBoxHeight = maxY - minY + 2 * margin;
+
+    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
 }
 
 /**
