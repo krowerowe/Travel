@@ -45,7 +45,7 @@ function drawPath() {
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = 55;
+        const archDepth = 60; 
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
@@ -73,9 +73,6 @@ function drawPath() {
     // Set the viewBox and the SVG element's height to the calculated values
     pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
     pathSvg.style.height = `${viewBoxHeight}px`;
-    pathSvg.style.top = `${minY - margin}px`;
-    pathSvg.style.left = `${minX - margin}px`;
-    pathSvg.style.width = `${viewBoxWidth}px`;
 }
 
 /**
