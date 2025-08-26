@@ -22,8 +22,9 @@ function drawPath() {
     const dots = document.querySelectorAll('.nav-item .dot');
     if (!pathSvg || dots.length < 2) return;
 
-    // Get the bounding box of the entire document to get absolute coordinates
-    const docRect = document.body.getBoundingClientRect();
+    // Get the bounding box of the nav-list to normalize coordinates
+    const navList = document.querySelector('.nav-list');
+    const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -36,15 +37,15 @@ function drawPath() {
         const startRect = startDot.getBoundingClientRect();
         const endRect = endDot.getBoundingClientRect();
 
-        // Calculate absolute coordinates relative to the top-left of the document
-        const startX = startRect.left + startRect.width / 2;
-        const startY = startRect.top + startRect.height / 2;
-        const endX = endRect.left + endRect.width / 2;
-        const endY = endRect.top + endRect.height / 2;
+        // Calculate coordinates relative to the nav-list container
+        const startX = (startRect.left + startRect.width / 2) - navRect.left;
+        const startY = (startRect.top + startRect.height / 2) - navRect.top;
+        const endX = (endRect.left + endRect.width / 2) - navRect.left;
+        const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = 50; 
+        const archDepth = 60; 
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
@@ -69,12 +70,9 @@ function drawPath() {
     const viewBoxWidth = maxX - minX + 2 * margin;
     const viewBoxHeight = maxY - minY + 2 * margin;
 
-    // Set the viewBox and the SVG element's dimensions and position
+    // Set the viewBox and the SVG element's height to the calculated values
     pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-    pathSvg.style.width = `${viewBoxWidth}px`;
     pathSvg.style.height = `${viewBoxHeight}px`;
-    pathSvg.style.top = `${viewBoxY}px`;
-    pathSvg.style.left = `${viewBoxX}px`;
 }
 
 /**
