@@ -27,7 +27,12 @@ function drawPath() {
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    const verticalOffset = 60; // Offset to push the path down inside the SVG container
+    
+    // Set a fixed SVG height and viewBox to prevent clipping
+    const svgHeight = 120;
+    pathSvg.style.height = `${svgHeight}px`;
+    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${svgHeight}`);
 
     // Loop through each pair of dots to create a path segment
     for (let i = 0; i < dots.length - 1; i++) {
@@ -45,34 +50,17 @@ function drawPath() {
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
-        const archDepth = 60; 
+        const archDepth = 55; 
         const controlY = Math.max(startY, endY) + archDepth;
 
         if (i === 0) {
-            pathData += `M ${startX} ${startY} `;
+            pathData += `M ${startX} ${startY + verticalOffset} `;
         }
 
-        pathData += `C ${midX} ${controlY}, ${midX} ${controlY}, ${endX} ${endY} `;
-        
-        // Update bounding box for the new points
-        minX = Math.min(minX, startX, endX, midX);
-        minY = Math.min(minY, startY, endY, controlY);
-        maxX = Math.max(maxX, startX, endX, midX);
-        maxY = Math.max(maxY, startY, endY, controlY);
+        pathData += `C ${midX} ${controlY + verticalOffset}, ${midX} ${controlY + verticalOffset}, ${endX} ${endY + verticalOffset} `;
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    
-    // Add a small margin to prevent clipping of the stroke
-    const margin = 5;
-    const viewBoxX = minX - margin;
-    const viewBoxY = minY - margin;
-    const viewBoxWidth = maxX - minX + 2 * margin;
-    const viewBoxHeight = maxY - minY + 2 * margin;
-
-    // Set the viewBox and the SVG element's height to the calculated values
-    pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-    pathSvg.style.height = `${viewBoxHeight}px`;
 }
 
 /**
@@ -84,7 +72,7 @@ function initializeNav() {
     let currentPath = window.location.pathname.split('/').pop();
     
     // Fix for the homepage URL
-    if (currentPath === '') {
+    if (currentPath === '' || currentPath === '/') {
         currentPath = 'index.html';
     }
 
