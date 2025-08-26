@@ -63,11 +63,13 @@ function drawPath() {
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
     
-    // Dynamically set the viewBox to fit the entire path
-    const viewBoxX = minX;
-    const viewBoxY = minY;
-    const viewBoxWidth = maxX - minX;
-    const viewBoxHeight = maxY - minY;
+    // Add a small margin to the viewBox to prevent clipping
+    const margin = 5;
+    const viewBoxX = minX - margin;
+    const viewBoxY = minY - margin;
+    const viewBoxWidth = maxX - minX + 2 * margin;
+    const viewBoxHeight = maxY - minY + 2 * margin;
+
     pathSvg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
 }
 
