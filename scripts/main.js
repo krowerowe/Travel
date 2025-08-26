@@ -23,16 +23,8 @@ function drawPath() {
     const navList = document.querySelector('.nav-list');
     if (!pathSvg || dots.length < 2) return;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // Get the bounding box of the entire document to get absolute coordinates
-    const docRect = document.body.getBoundingClientRect();
-=======
-=======
->>>>>>> Stashed changes
     // Get the bounding rectangle of the nav-list container to use as the reference
     const navRect = navList.getBoundingClientRect();
->>>>>>> Stashed changes
 
     let pathData = '';
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -46,22 +38,11 @@ function drawPath() {
         const startRect = startDot.getBoundingClientRect();
         const endRect = endDot.getBoundingClientRect();
 
-<<<<<<< Updated upstream
-        // Calculate absolute coordinates relative to the top-left of the document
-        const startX = startRect.left + startRect.width / 2;
-        const startY = startRect.top + startRect.height / 2;
-        const endX = endRect.left + endRect.width / 2;
-        const endY = endRect.top + endRect.height / 2;
-=======
         // Calculate coordinates relative to the nav-list container
         const startX = startRect.left - navRect.left + startRect.width / 2;
         const startY = startRect.top - navRect.top + startRect.height / 2;
         const endX = endRect.left - navRect.left + endRect.width / 2;
         const endY = endRect.top - navRect.top + endRect.height / 2;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         // Calculate control points for a downward-facing arch
         const midX = (startX + endX) / 2;
