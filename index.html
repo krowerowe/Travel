@@ -55,7 +55,7 @@
         }
         .nav-pin-container {
             position: absolute;
-            top: -30px; /* Adjusted from -25px to -30px to move the pin down into view */
+            top: -25px; /* Adjusted from -15px to -25px to move the pin up */
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -70,6 +70,35 @@
             top: 0;
             left: 0;
             width: 100%;
+        }
+        
+        /* New CSS for the pin to replace the SVG */
+        .nav-pin {
+            position: relative;
+            width: 32px;
+            height: 32px;
+        }
+        .nav-pin::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: #3b82f6;
+            border-radius: 50% 50% 50% 0;
+            transform: translateX(-50%) rotate(-45deg);
+        }
+        .nav-pin::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background-color: #3b82f6;
         }
     </style>
 </head>
