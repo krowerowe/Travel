@@ -1,29 +1,3 @@
-export const countriesContent = `
-    <div class="px-4 py-8 bg-white rounded-xl shadow-md">
-        <h1 class="text-3xl font-bold mb-4">Explore Countries</h1>
-        <div class="mb-6">
-            <label for="country-select" class="block text-sm font-medium text-gray-700">Select a country:</label>
-            <select id="country-select" name="country-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm rounded-md">
-                <option value="">-- Please choose a country --</option>
-            </select>
-        </div>
-
-        <div id="country-info-section" class="hidden opacity-0 transition-opacity duration-500 ease-in-out mt-8">
-            <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <h2 id="country-name" class="text-2xl font-bold mb-2"></h2>
-                <p id="country-description" class="text-gray-600 mb-6"></p>
-            </div>
-
-            <h3 class="text-xl font-semibold mt-8 mb-4">Image Gallery</h3>
-            <div id="image-gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-
-            <h3 class="text-xl font-semibold mt-8 mb-4">Shop Now</h3>
-            <div id="shop-section" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-        </div>
-    </div>
-`;
-
-// Data for the countries page.
 const countryData = {
     'austria': {
         name: 'Austria',
@@ -292,8 +266,52 @@ const countryData = {
     }
 };
 
-// This function will be called by main.js to run the page-specific logic.
-export function runCountriesPageLogic() {
+/**
+ * Returns the HTML for the Countries page.
+ * @returns {string} The HTML content.
+ */
+export function generateCountriesPageContent() {
+    const countryOptions = Object.keys(countryData).map(key => {
+        const country = countryData[key];
+        return `<option value="${key}">${country.name}</option>`;
+    }).join('');
+
+    return `
+        <div class="px-4 py-8 bg-white rounded-xl shadow-md">
+            <h1 class="text-3xl font-bold mb-4">Explore Countries</h1>
+            <div class="mb-6">
+                <label for="country-select" class="block text-sm font-medium text-gray-700">Select a country:</label>
+                <select id="country-select" name="country-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm rounded-md">
+                    <option value="">-- Please choose a country --</option>
+                    ${countryOptions}
+                </select>
+            </div>
+
+            <div id="country-info-section" class="hidden opacity-0 transition-opacity duration-500 ease-in-out mt-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <h2 id="country-name" class="text-2xl font-bold mb-2"></h2>
+                    <p id="country-description" class="text-gray-600 mb-6"></p>
+                </div>
+
+                <h3 class="text-xl font-semibold mt-8 mb-4">Image Gallery</h3>
+                <div id="image-gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Images will be loaded here dynamically -->
+                </div>
+
+                <h3 class="text-xl font-semibold mt-8 mb-4">Shop Now</h3>
+                <div id="shop-section" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Shop items will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Renders the content for the 'Countries' page, including the dynamic dropdown.
+ * This function must be called after the content is loaded.
+ */
+export function renderCountriesPageLogic() {
     const selectElement = document.getElementById('country-select');
     const infoSection = document.getElementById('country-info-section');
     const countryNameElement = document.getElementById('country-name');
@@ -301,16 +319,6 @@ export function runCountriesPageLogic() {
     const galleryContainer = document.getElementById('image-gallery');
     const shopContainer = document.getElementById('shop-section');
 
-    // Populate the dropdown with country options
-    Object.keys(countryData).forEach(key => {
-        const country = countryData[key];
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = country.name;
-        selectElement.appendChild(option);
-    });
-
-    // Add the event listener for the dropdown
     selectElement.addEventListener('change', (event) => {
         const selectedCountry = event.target.value;
         if (selectedCountry && countryData[selectedCountry]) {
@@ -350,10 +358,6 @@ export function runCountriesPageLogic() {
                 infoSection.classList.remove('hidden');
                 setTimeout(() => infoSection.classList.remove('opacity-0'), 10);
             }
-        } else {
-            // If no country is selected, hide the section
-            infoSection.classList.add('opacity-0');
-            setTimeout(() => infoSection.classList.add('hidden'), 500);
         }
     });
 }
