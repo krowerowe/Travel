@@ -11,8 +11,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800 font-inter">
-    <!-- The header will be dynamically loaded here -->
-    <header id="header-container"></header>
+    <header class="map-nav w-full">
+        <nav class="container mx-auto">
+            <ul class="nav-list">
+                <!-- SVG container for the dynamic path -->
+                <div class="dotted-path">
+                    <svg id="path-svg" viewBox="0 0 1000 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Path is drawn here by JavaScript -->
+                    </svg>
+                </div>
+                
+                <!-- Navigation Items. The 'active' class on the first item sets the initial pin position. -->
+                <li class="nav-item active" data-page="home">
+                    <a href="#home" class="nav-link">Home</a>
+                    <span class="dot"></span>
+                </li>
+                
+                <li class="nav-item" data-page="countries">
+                    <a href="#countries" class="nav-link">Countries</a>
+                    <span class="dot"></span>
+                </li>
+                
+                <li class="nav-item" data-page="about">
+                    <a href="#about" class="nav-link">About</a>
+                    <span class="dot"></span>
+                </li>
+                
+                <li class="nav-item" data-page="contact">
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <span class="dot"></span>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- The main content for each page will be loaded into this container -->
     <main id="main-content-container" class="p-8"></main>
