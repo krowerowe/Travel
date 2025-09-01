@@ -63,8 +63,10 @@ function drawPath() {
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    pathSvg.setAttribute('viewBox', `0 ${-curveHeight} ${navRect.width} ${navRect.height + curveHeight}`);
+    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
 }
+
+  
 
 /**
  * Loads the page content based on the URL hash.
