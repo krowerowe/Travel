@@ -20,7 +20,7 @@ const navItems = document.querySelectorAll('.nav-item');
 /**
  * The drawPath function recalculates and draws the SVG path
  * connecting all the blue dots in the navigation bar with a single,
- * continuous, upward-facing arch.
+ * continuous, downward-facing arch.
  */
 function drawPath() {
     const pathSvg = document.getElementById('path-svg');
@@ -52,13 +52,14 @@ function drawPath() {
         const nextY = (nextDotRect.top + nextDotRect.height / 2) - navRect.top;
         
         const controlX = (prevX + nextX) / 2;
-        const controlY = Math.min(prevY, nextY) - curveHeight;
+        // Corrected calculation to flip the arch downwards
+        const controlY = Math.max(prevY, nextY) + curveHeight;
 
         pathData += ` Q ${controlX} ${controlY} ${nextX} ${nextY}`;
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    pathSvg.setAttribute('viewBox', `0 ${-curveHeight} ${navRect.width} ${navRect.height + curveHeight}`);
+    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
 }
 
 /**
