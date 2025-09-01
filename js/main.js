@@ -42,7 +42,7 @@ function drawPath() {
     const startX = (startRect.left + startRect.width / 2) - navRect.left - 5;
     const startY = (startRect.top + startRect.height / 2) - navRect.top;
     
-    pathData += `M ${startX + 75} ${startY - 75} `;
+    pathData += `M ${startX} ${startY - 75} `;
 
     for (let i = 1; i < dots.length; i++) {
         const endDot = dots[i];
