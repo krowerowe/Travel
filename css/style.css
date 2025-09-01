@@ -62,9 +62,9 @@ body {
 /* The container for the blue map pin SVG */
 .nav-pin-container {
     position: absolute;
-    bottom: 0px; /* Adjusted to fix pin position */
+    bottom: 50px; /* Adjusted to fix pin position */
     left: 50%;
-    transform: translateX(-50%) translateY(-50px);
+    transform: translateX(-50%);
     z-index: 2;
     pointer-events: none;
     transition: transform 0.3s ease-out;
