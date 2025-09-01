@@ -32,6 +32,11 @@ function drawPath() {
 
     const navList = document.querySelector('.nav-list');
     const navRect = navList.getBoundingClientRect();
+    
+    // Check for negative width
+    if (navRect.width <= 0) {
+        return;
+    }
 
     let pathData = '';
     const curveHeight = 80;
@@ -52,7 +57,6 @@ function drawPath() {
         const nextY = (nextDotRect.top + nextDotRect.height / 2) - navRect.top;
         
         const controlX = (prevX + nextX) / 2;
-        // Corrected calculation to flip the arch downwards
         const controlY = Math.max(prevY, nextY) + curveHeight;
 
         pathData += ` Q ${controlX} ${controlY} ${nextX} ${nextY}`;
