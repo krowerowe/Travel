@@ -1,4 +1,3 @@
-import { headerContent } from './header.js';
 import { footerContent } from './footer.js';
 import { homeContent } from './home.js';
 import { generateCountriesPageContent, renderCountriesPageLogic } from './countries.js';
@@ -14,7 +13,6 @@ const routes = {
 };
 
 // Get the main containers from the DOM
-const headerContainer = document.getElementById('header-container');
 const mainContentContainer = document.getElementById('main-content-container');
 const footerContainer = document.getElementById('footer-container');
 const navItems = document.querySelectorAll('.nav-item');
@@ -61,66 +59,75 @@ const updateNavLinks = (activePage) => {
     drawPath();
 };
 
+/**
+ * The drawPath function recalculates and draws the SVG path
+ * connecting all the blue dots in the navigation bar with a single,
+ * continuous, upward-facing arch.
+ */
 const drawPath = () => {
     const pathSvg = document.getElementById('path-svg');
-    const navList = document.querySelector('.nav-list');
-    const activeDot = document.querySelector('.nav-item.active .dot');
-    const allDots = document.querySelectorAll('.nav-item .dot');
-
-    if (!pathSvg || !activeDot || allDots.length < 2) {
-        pathSvg.innerHTML = '';
+    const dots = document.querySelectorAll('.nav-item .dot');
+    if (dots.length < 2 || !pathSvg) {
+        if (pathSvg) pathSvg.innerHTML = '';
         return;
     }
 
+    // Get the bounding box of the nav-list to normalize coordinates
+    const navList = document.querySelector('.nav-list');
     const navRect = navList.getBoundingClientRect();
-    const activeRect = activeDot.getBoundingClientRect();
 
     let pathData = '';
-    const isFirstItem = activeDot === allDots[0];
-    const isLastItem = activeDot === allDots[allDots.length - 1];
 
-    if (!isFirstItem) {
-        const prevDot = allDots[Array.from(allDots).indexOf(activeDot) - 1];
-        const prevRect = prevDot.getBoundingClientRect();
-        const startX = (prevRect.left + prevRect.width / 2) - navRect.left;
-        const startY = (prevRect.top + prevRect.height / 2) - navRect.top;
-        const endX = (activeRect.left + activeRect.width / 2) - navRect.left;
-        const endY = (activeRect.top + activeRect.height / 2) - navRect.top;
-        const midX = (startX + endX) / 2;
-        const controlY = Math.min(startY, endY) - (endX - startX) * 0.7; // Adjust curve height
-        pathData += `M ${startX} ${startY} Q ${midX} ${controlY} ${endX} ${endY}`;
+    // Get the coordinates for the first dot to start the path
+    const firstDot = dots[0];
+    const firstRect = firstDot.getBoundingClientRect();
+    const startX = (firstRect.left + firstRect.width / 2) - navRect.left;
+    const startY = (firstRect.top + firstRect.height / 2) - navRect.top;
+    pathData += `M ${startX} ${startY} `;
+
+    // Loop through each dot from the second one to create a continuous path
+    for (let i = 1; i < dots.length; i++) {
+        const endDot = dots[i];
+        const startPoint = dots[i - 1];
+
+        const endRect = endDot.getBoundingClientRect();
+        const startRect = startPoint.getBoundingClientRect();
+
+        // Calculate coordinates relative to the nav-list container
+        const newStartX = (startRect.left + startRect.width / 2) - navRect.left;
+        const newStartY = (startRect.top + startRect.height / 2) - navRect.top;
+        const endX = (endRect.left + endRect.width / 2) - navRect.left;
+        const endY = (endRect.top + endRect.height / 2) - navRect.top;
+
+        // Control points for the half-circle arc
+        const midX = (newStartX + endX) / 2;
+        // This formula flips the arc to connect above the dots
+        const controlY = Math.min(newStartY, endY) - (endX - newStartX) * 0.7; 
+
+        // Create a quadratic Bezier curve for the arc
+        pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
     }
 
-    if (!isLastItem) {
-        const nextDot = allDots[Array.from(allDots).indexOf(activeDot) + 1];
-        const nextRect = nextDot.getBoundingClientRect();
-        const startX = (activeRect.left + activeRect.width / 2) - navRect.left;
-        const startY = (activeRect.top + activeRect.height / 2) - navRect.top;
-        const endX = (nextRect.left + nextRect.width / 2) - navRect.left;
-        const endY = (nextRect.top + nextRect.height / 2) - navRect.top;
-        const midX = (startX + endX) / 2;
-        const controlY = Math.min(startY, endY) - (endX - startX) * 0.7; // Adjust curve height
-        pathData += `M ${startX} ${startY} Q ${midX} ${controlY} ${endX} ${endY}`;
-    }
-
+    // Set the path data on the SVG element
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
+    
+    // Adjust the SVG viewBox to fit the content, making it responsive
     pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
 };
 
 
 // Initial page load and event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    headerContainer.innerHTML = headerContent;
     footerContainer.innerHTML = footerContent;
     
     // Add event listeners for navigation links
     const navBar = document.querySelector('.nav-list');
     if (navBar) {
         navBar.addEventListener('click', (event) => {
-            event.preventDefault();
-            const link = event.target.closest('a');
-            if (link) {
-                const page = link.getAttribute('data-page');
+            const listItem = event.target.closest('li.nav-item');
+            if (listItem) {
+                event.preventDefault();
+                const page = listItem.getAttribute('data-page');
                 history.pushState({ page: page }, '', `#${page}`);
                 loadPage();
             }
