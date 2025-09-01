@@ -32,52 +32,48 @@ function drawPath() {
 
     const navList = document.querySelector('.nav-list');
     const navRect = navList.getBoundingClientRect();
-
-    // Check for negative width
-    if (navRect.width <= 0) {
+    
+    // Check for negative width or height
+    if (navRect.width <= 0 || navRect.height <= 0) {
         return;
     }
 
-    // Get the bounding rects for the first and last dots
     const firstDotRect = dots[0].getBoundingClientRect();
     const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
-
-    // Calculate the total width of the path we need to draw
-    const pathWidth = (lastDotRect.left + lastDotRect.width / 2) - (firstDotRect.left + firstDotRect.width / 2);
-
-    // Calculate the start and end X coordinates relative to the first dot
-    const startX = 0;
-    const endX = pathWidth;
     
-    // Y coordinates remain the same, relative to the nav container
-    const startY = (firstDotRect.top + firstDotRect.height / 2) - navRect.top;
+    // Calculate SVG dimensions
+    const svgWidth = lastDotRect.right - firstDotRect.left;
+    const svgHeight = navRect.height;
     
-    let pathData = `M ${startX} ${startY}`;
-    
-    // The curve height is now a dynamic value based on the screen width
-    const curveHeight = navRect.width > 768 ? 40 : 80;
+    pathSvg.style.width = `${svgWidth}px`;
+    pathSvg.style.height = `${svgHeight}px`;
+    pathSvg.style.left = `${firstDotRect.left - navRect.left}px`;
+    pathSvg.style.top = `0px`;
+    pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
-    for (let i = 1; i < dots.length; i++) {
-        const prevDotRect = dots[i - 1].getBoundingClientRect();
-        const nextDotRect = dots[i].getBoundingClientRect();
-        
-        // Calculate X and Y positions relative to the first dot's X position
-        const prevX = (prevDotRect.left + prevDotRect.width / 2) - (firstDotRect.left + firstDotRect.width / 2);
-        const nextX = (nextDotRect.left + nextDotRect.width / 2) - (firstDotRect.left + firstDotRect.width / 2);
-        const nextY = (nextDotRect.top + nextDotRect.height / 2) - navRect.top;
-        
-        const controlX = (prevX + nextX) / 2;
-        // Corrected calculation to flip the arch downwards
-        const controlY = Math.max(nextY, nextY) + curveHeight;
+    const pathData = [];
+    const curveHeight = svgWidth > 768 ? 40 : 80;
 
-        pathData += ` Q ${controlX} ${controlY} ${nextX} ${nextY}`;
+    for (let i = 0; i < dots.length; i++) {
+        const dotRect = dots[i].getBoundingClientRect();
+        // Calculate the center point of the dot relative to the SVG container
+        const x = (dotRect.left + dotRect.width / 2) - firstDotRect.left;
+        const y = (dotRect.top + dotRect.height / 2) - navRect.top;
+        pathData.push({ x, y });
     }
 
-    // The SVG viewBox is now set to match the exact path width and the height of the nav container
-    pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    pathSvg.setAttribute('viewBox', `0 0 ${pathWidth} ${navRect.height}`);
-    pathSvg.style.left = `${(firstDotRect.left + firstDotRect.width / 2) - navRect.left}px`;
+    let pathString = `M ${pathData[0].x} ${pathData[0].y}`;
+    for (let i = 1; i < pathData.length; i++) {
+        const prevPoint = pathData[i - 1];
+        const currentPoint = pathData[i];
+        const controlX = (prevPoint.x + currentPoint.x) / 2;
+        const controlY = Math.max(prevPoint.y, currentPoint.y) + curveHeight;
+        pathString += ` Q ${controlX} ${controlY} ${currentPoint.x} ${currentPoint.y}`;
+    }
+
+    pathSvg.innerHTML = `<path d="${pathString}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
 }
+
 
 /**
  * Loads the page content based on the URL hash.
