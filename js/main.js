@@ -94,10 +94,9 @@ const drawPath = () => {
         const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
         const midX = (prevX + endX) / 2;
-        const midY = (prevY + endY) / 2;
         
         // This is the corrected formula for an upward-facing arch
-        const controlY = midY - Math.abs(endX - prevX) * 0.5;
+        const controlY = Math.min(prevY, endY) - Math.abs(endX - prevX) * 0.7;
 
         pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
     }
