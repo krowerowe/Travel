@@ -32,6 +32,7 @@ function drawPath() {
 
     const navList = document.querySelector('.nav-list');
     const navRect = navList.getBoundingClientRect();
+    const navItemWidth = navItems[0].getBoundingClientRect().width;
 
     let pathData = '';
     const curveHeight = 80;
