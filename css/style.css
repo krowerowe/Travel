@@ -21,7 +21,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 1rem 40px;
+    padding: 0 1rem; /* Adjusting padding to allow more room for the arch */
     min-height: 150px;
 }
 
@@ -34,6 +34,7 @@ body {
     text-align: center;
     flex-grow: 1;
     cursor: pointer;
+    padding-bottom: 40px; /* Added padding to give the dots space */
 }
 
 /* Styling for the navigation links */
