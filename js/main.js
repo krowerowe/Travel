@@ -34,11 +34,13 @@ function drawPath() {
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
-    
+    const curveHeight = 80;
+
     const startDot = dots[0];
     const startRect = startDot.getBoundingClientRect();
     const startX = (startRect.left + startRect.width / 2) - navRect.left;
     const startY = (startRect.top + startRect.height / 2) - navRect.top;
+    
     pathData += `M ${startX} ${startY} `;
 
     for (let i = 1; i < dots.length; i++) {
@@ -55,13 +57,13 @@ function drawPath() {
         const midX = (prevX + endX) / 2;
         
         // This is the corrected formula for an upward-facing arch
-        const controlY = Math.min(prevY, endY) - (endX - prevX) * 0.7;
+        const controlY = Math.min(prevY, endY) - curveHeight;
 
         pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
+    pathSvg.setAttribute('viewBox', `0 ${-curveHeight} ${navRect.width} ${navRect.height + curveHeight}`);
 }
 
 /**
