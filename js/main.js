@@ -72,46 +72,37 @@ const drawPath = () => {
         return;
     }
 
-    // Get the bounding box of the nav-list to normalize coordinates
     const navList = document.querySelector('.nav-list');
     const navRect = navList.getBoundingClientRect();
 
     let pathData = '';
-
-    // Get the coordinates for the first dot to start the path
-    const firstDot = dots[0];
-    const firstRect = firstDot.getBoundingClientRect();
-    const startX = (firstRect.left + firstRect.width / 2) - navRect.left;
-    const startY = (firstRect.top + firstRect.height / 2) - navRect.top;
+    const startDot = dots[0];
+    const startRect = startDot.getBoundingClientRect();
+    const startX = (startRect.left + startRect.width / 2) - navRect.left;
+    const startY = (startRect.top + startRect.height / 2) - navRect.top;
     pathData += `M ${startX} ${startY} `;
 
-    // Loop through each dot from the second one to create a continuous path
     for (let i = 1; i < dots.length; i++) {
         const endDot = dots[i];
-        const startPoint = dots[i - 1];
-
+        const prevDot = dots[i - 1];
         const endRect = endDot.getBoundingClientRect();
-        const startRect = startPoint.getBoundingClientRect();
+        const prevRect = prevDot.getBoundingClientRect();
 
-        // Calculate coordinates relative to the nav-list container
-        const newStartX = (startRect.left + startRect.width / 2) - navRect.left;
-        const newStartY = (startRect.top + startRect.height / 2) - navRect.top;
+        const prevX = (prevRect.left + prevRect.width / 2) - navRect.left;
+        const prevY = (prevRect.top + prevRect.height / 2) - navRect.top;
         const endX = (endRect.left + endRect.width / 2) - navRect.left;
         const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
-        // Control points for the half-circle arc
-        const midX = (newStartX + endX) / 2;
-        // This formula flips the arc to connect above the dots
-        const controlY = Math.min(newStartY, endY) - (endX - newStartX) * 0.7; 
+        const midX = (prevX + endX) / 2;
+        const midY = (prevY + endY) / 2;
+        
+        // This is the corrected formula for an upward-facing arch
+        const controlY = midY - Math.abs(endX - prevX) * 0.5;
 
-        // Create a quadratic Bezier curve for the arc
         pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
     }
 
-    // Set the path data on the SVG element
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    
-    // Adjust the SVG viewBox to fit the content, making it responsive
     pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
 };
 
@@ -134,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle initial page load based on URL hash
     const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
     loadPage();
 });
