@@ -20,7 +20,7 @@ const navItems = document.querySelectorAll('.nav-item');
 /**
  * The drawPath function recalculates and draws the SVG path
  * connecting all the blue dots in the navigation bar with a single,
- * continuous, downward-facing arch.
+ * continuous, upward-facing arch.
  */
 function drawPath() {
     const pathSvg = document.getElementById('path-svg');
@@ -36,31 +36,25 @@ function drawPath() {
     let pathData = '';
     const curveHeight = 80;
 
-    const startDot = dots[0];
-    const startRect = startDot.getBoundingClientRect();
-    // Adjusted startX to fine-tune alignment
-    const startX = (startRect.left + startRect.width / 2) - navRect.left - 5;
-    const startY = (startRect.top + startRect.height / 2) - navRect.top;
+    const firstDotRect = dots[0].getBoundingClientRect();
+    const startX = (firstDotRect.left + firstDotRect.width / 2) - navRect.left;
+    const startY = (firstDotRect.top + firstDotRect.height / 2) - navRect.top;
     
-    pathData += `M ${startX} ${startY} `;
+    pathData += `M ${startX} ${startY}`;
 
     for (let i = 1; i < dots.length; i++) {
-        const endDot = dots[i];
-        const prevDot = dots[i - 1];
-        const endRect = endDot.getBoundingClientRect();
-        const prevRect = prevDot.getBoundingClientRect();
-
-        const prevX = (prevRect.left + prevRect.width / 2) - navRect.left - 5;
-        const prevY = (prevRect.top + prevRect.height / 2) - navRect.top;
-        const endX = (endRect.left + endRect.width / 2) - navRect.left - 5;
-        const endY = (endRect.top + endRect.height / 2) - navRect.top;
-
-        const midX = (prevX + endX) / 2;
+        const prevDotRect = dots[i - 1].getBoundingClientRect();
+        const nextDotRect = dots[i].getBoundingClientRect();
         
-        // This is the corrected formula for a downward-facing arch
-        const controlY = Math.max(prevY, endY) + curveHeight;
+        const prevX = (prevDotRect.left + prevDotRect.width / 2) - navRect.left;
+        const prevY = (prevDotRect.top + prevDotRect.height / 2) - navRect.top;
+        const nextX = (nextDotRect.left + nextDotRect.width / 2) - navRect.left;
+        const nextY = (nextDotRect.top + nextDotRect.height / 2) - navRect.top;
+        
+        const controlX = (prevX + nextX) / 2;
+        const controlY = Math.min(prevY, nextY) - curveHeight;
 
-        pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
+        pathData += ` Q ${controlX} ${controlY} ${nextX} ${nextY}`;
     }
 
     pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
