@@ -39,7 +39,9 @@ function drawPath() {
     }
 
     let pathData = '';
-    const curveHeight = 80;
+    
+    // The curve height is now responsive, it's a smaller value on wider screens
+    const curveHeight = navRect.width > 768 ? 40 : 80;
 
     const firstDotRect = dots[0].getBoundingClientRect();
     const startX = (firstDotRect.left + firstDotRect.width / 2) - navRect.left;
@@ -57,6 +59,7 @@ function drawPath() {
         const nextY = (nextDotRect.top + nextDotRect.height / 2) - navRect.top;
         
         const controlX = (prevX + nextX) / 2;
+        // Corrected calculation to flip the arch downwards
         const controlY = Math.max(prevY, nextY) + curveHeight;
 
         pathData += ` Q ${controlX} ${controlY} ${nextX} ${nextY}`;
