@@ -1,137 +1,89 @@
-import { footerContent } from './footer.js';
-import { homeContent } from './home.js';
-import { generateCountriesPageContent, renderCountriesPageLogic } from './countries.js';
-import { aboutContent } from './about.js';
-import { contactContent } from './contact.js';
-
-// Map URL hashes to content functions and their optional run functions.
-const routes = {
-    'home': { content: homeContent, run: null },
-    'countries': { content: generateCountriesPageContent, run: renderCountriesPageLogic },
-    'about': { content: aboutContent, run: null },
-    'contact': { content: contactContent, run: null },
-};
-
-// Get the main containers from the DOM
-const mainContentContainer = document.getElementById('main-content-container');
-const footerContainer = document.getElementById('footer-container');
-const navItems = document.querySelectorAll('.nav-item');
-
-/**
- * The drawPath function recalculates and draws the SVG path
- * connecting all the blue dots in the navigation bar with a single,
- * continuous, upward-facing arch.
- */
-function drawPath() {
-    const pathSvg = document.getElementById('path-svg');
-    const dots = document.querySelectorAll('.nav-item .dot');
-    if (dots.length < 2 || !pathSvg) {
-        if (pathSvg) pathSvg.innerHTML = '';
-        return;
-    }
-
-    const navList = document.querySelector('.nav-list');
-    const navRect = navList.getBoundingClientRect();
-
-    let pathData = '';
-    const curveHeight = 80;
-
-    const startDot = dots[0];
-    const startRect = startDot.getBoundingClientRect();
-    const startX = (startRect.left + startRect.width / 2) - navRect.left;
-    const startY = (startRect.top + startRect.height / 2) - navRect.top;
-    
-    pathData += `M ${startX} ${startY} `;
-
-    for (let i = 1; i < dots.length; i++) {
-        const endDot = dots[i];
-        const prevDot = dots[i - 1];
-        const endRect = endDot.getBoundingClientRect();
-        const prevRect = prevDot.getBoundingClientRect();
-
-        const prevX = (prevRect.left + prevRect.width / 2) - navRect.left;
-        const prevY = (prevRect.top + prevRect.height / 2) - navRect.top;
-        const endX = (endRect.left + endRect.width / 2) - navRect.left;
-        const endY = (endRect.top + endRect.height / 2) - navRect.top;
-
-        const midX = (prevX + endX) / 2;
-        
-        // This is the corrected formula for an upward-facing arch
-        const controlY = Math.min(prevY, endY) - curveHeight;
-
-        pathData += `Q ${midX} ${controlY} ${endX} ${endY} `;
-    }
-
-    pathSvg.innerHTML = `<path d="${pathData}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
-    pathSvg.setAttribute('viewBox', `0 0 ${navRect.width} ${navRect.height}`);
+/* Base styles for the body and typography */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7fafc;
 }
 
-  
+/* Styling for the main header navigation area */
+.map-nav {
+    background: #eef2f3;
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="50" x2="100" y2="50" stroke="%23d1d5db" stroke-width="1" stroke-dasharray="2,2" /><line x1="50" y1="0" x2="50" y2="100" stroke="%23d1d5db" stroke-width="1" stroke-dasharray="2,2" /></svg>');
+    background-size: 10px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-/**
- * Loads the page content based on the URL hash.
- */
-const loadPage = () => {
-    const page = window.location.hash.slice(1) || 'home';
-    const route = routes[page];
+/* Layout for the list of navigation items */
+.nav-list {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 1rem;
+    min-height: 150px;
+}
 
-    if (route) {
-        const content = typeof route.content === 'function' ? route.content() : route.content;
-        mainContentContainer.innerHTML = content;
+/* Styling for each individual nav item */
+.nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    cursor: pointer;
+    padding-bottom: 40px;
+}
 
-        if (route.run) {
-            route.run();
-        }
+/* Styling for the navigation links */
+.nav-link {
+    font-weight: bold;
+    color: #4b5563;
+    transition: color 0.3s ease;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
 
-        updateNavLinks(page);
-    } else {
-        mainContentContainer.innerHTML = `
-            <div class="text-center py-16">
-                <h1 class="text-4xl font-bold mb-4">404 - Page Not Found</h1>
-                <p class="text-gray-600">The page you're looking for does not exist. Please use the navigation above.</p>
-            </div>
-        `;
-        updateNavLinks(null);
-    }
-    
-    drawPath();
-};
+.nav-link:hover {
+    color: #1f2937;
+}
 
-/**
- * Updates the active class on navigation links to control pin visibility.
- * @param {string} activePage The page that should be active.
- */
-const updateNavLinks = (activePage) => {
-    navItems.forEach(item => {
-        if (item.getAttribute('data-page') === activePage) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
-};
+/* The blue circle "dot" below each link */
+.dot {
+    width: 15px;
+    height: 15px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    z-index: 1;
+}
 
-// Event listener for navigation clicks
-document.addEventListener('DOMContentLoaded', () => {
-    footerContainer.innerHTML = footerContent;
-    
-    const navBar = document.querySelector('.nav-list');
-    if (navBar) {
-        navBar.addEventListener('click', (event) => {
-            const listItem = event.target.closest('li.nav-item');
-            if (listItem) {
-                event.preventDefault();
-                const page = listItem.getAttribute('data-page');
-                history.pushState({ page: page }, '', `#${page}`);
-                loadPage();
-            }
-        });
-    }
+/* The container for the blue map pin SVG */
+.nav-pin-container {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    pointer-events: none;
+    transition: transform 0.3s ease-out;
+    opacity: 0;
+}
 
-    const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
-    loadPage();
-});
+/* Hides the nav pin on all inactive items */
+.nav-item.active .nav-pin-container {
+    transform: translateX(-50%) translateY(calc(-100% - 10px));
+    opacity: 1;
+}
 
-// Listen for hash changes to navigate between pages.
-window.addEventListener('hashchange', loadPage);
-window.addEventListener('resize', drawPath);
+/* The SVG container for the blue dotted path */
+.dotted-path {
+    position: absolute;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
