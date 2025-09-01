@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Explorer</title>
+    <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts for Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-gray-100 text-gray-800 font-inter">
-    <header class="map-nav w-full">
+<body class="flex flex-col min-h-screen">
+    <header id="header-container" class="map-nav w-full">
         <nav class="container mx-auto">
             <ul class="nav-list">
-                <!-- SVG container for the dynamic path -->
-                <div class="dotted-path">
-                    <svg id="path-svg" viewBox="0 0 1000 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Path is drawn here by JavaScript -->
-                    </svg>
-                </div>
-                
                 <!-- Navigation Items. The 'active' class on the first item sets the initial pin position. -->
                 <li class="nav-item active" data-page="home">
                     <div class="nav-pin-container">
-                        <svg class="nav-pin-svg" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
                         </svg>
                     </div>
@@ -34,7 +29,7 @@
                 
                 <li class="nav-item" data-page="countries">
                     <div class="nav-pin-container">
-                        <svg class="nav-pin-svg" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
                         </svg>
                     </div>
@@ -44,7 +39,7 @@
                 
                 <li class="nav-item" data-page="about">
                     <div class="nav-pin-container">
-                        <svg class="nav-pin-svg" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
                         </svg>
                     </div>
@@ -54,7 +49,7 @@
                 
                 <li class="nav-item" data-page="contact">
                     <div class="nav-pin-container">
-                        <svg class="nav-pin-svg" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
                         </svg>
                     </div>
@@ -65,11 +60,9 @@
         </nav>
     </header>
 
-    <!-- The main content for each page will be loaded into this container -->
-    <main id="main-content-container" class="p-8"></main>
+    <main id="main-content-container" class="content container mx-auto p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center"></main>
 
-    <!-- The footer will be dynamically loaded here -->
-    <footer id="footer-container"></footer>
+    <footer id="footer-container" class="w-full bg-gray-800 text-white text-center p-4 mt-auto"></footer>
 
     <!-- Main JavaScript file to handle all the dynamic content -->
     <script src="js/main.js" type="module"></script>
