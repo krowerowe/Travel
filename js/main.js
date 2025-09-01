@@ -38,7 +38,8 @@ function drawPath() {
 
     const startDot = dots[0];
     const startRect = startDot.getBoundingClientRect();
-    const startX = (startRect.left + startRect.width / 2) - navRect.left;
+    // Adjusted startX to fine-tune alignment
+    const startX = (startRect.left + startRect.width / 2) - navRect.left - 5;
     const startY = (startRect.top + startRect.height / 2) - navRect.top;
     
     pathData += `M ${startX} ${startY} `;
@@ -49,9 +50,9 @@ function drawPath() {
         const endRect = endDot.getBoundingClientRect();
         const prevRect = prevDot.getBoundingClientRect();
 
-        const prevX = (prevRect.left + prevRect.width / 2) - navRect.left;
+        const prevX = (prevRect.left + prevRect.width / 2) - navRect.left - 5;
         const prevY = (prevRect.top + prevRect.height / 2) - navRect.top;
-        const endX = (endRect.left + endRect.width / 2) - navRect.left;
+        const endX = (endRect.left + endRect.width / 2) - navRect.left - 5;
         const endY = (endRect.top + endRect.height / 2) - navRect.top;
 
         const midX = (prevX + endX) / 2;
