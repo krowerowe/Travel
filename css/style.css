@@ -64,7 +64,7 @@ body {
     position: absolute;
     bottom: 100px; /* Adjusted to fix pin position */
     left: 50%;
-    transform: translateX(-50%) translateY(calc(-100% - 10px));
+    transform: translateX(-50%) translateY(calc(-100% - 30px));
     z-index: 2;
     pointer-events: none;
     transition: transform 0.3s ease-out;
@@ -73,7 +73,7 @@ body {
 
 /* Hides the nav pin on all inactive items */
 .nav-item.active .nav-pin-container {
-    transform: translateX(-50%) translateY(calc(-100% - 10px));
+    transform: translateX(-50%) translateY(calc(-100% - 30px));
     opacity: 1;
 }
 
