@@ -13,8 +13,8 @@
             color: #1f2937;
         }
         .header {
-            background-color: #f3f4f6;
-            color: #1f2937;
+            background-color: #1f2937;
+            color: #f3f4f6;
         }
         .nav-item {
             position: relative;
@@ -53,27 +53,15 @@
             position: relative;
             z-index: 10;
         }
-        .header-bg {
-          height: 120px;
-          background-color: #1f2937;
-          width: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 1;
-          border-radius: 0 0 16px 16px;
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-    <div class="header-bg"></div>
-    <header class="header relative z-20 py-4 pt-10">
-        <div class="container mx-auto px-4 flex justify-end items-center">
+    <header class="header shadow-lg py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Global Explorer</h1>
             <nav class="relative">
                 <ul class="nav-list flex space-x-8">
                     <li class="nav-item flex flex-col items-center cursor-pointer" data-page="home">
-                        <!-- SVG is now a child of the first nav item -->
-                        <svg id="path-svg" class="absolute top-0" style="z-index: 10;"></svg>
                         <a href="#home" class="flex flex-col items-center">
                             <span class="dot"></span>
                             <span class="text-sm mt-2 font-medium">Home</span>
@@ -112,6 +100,8 @@
                 </ul>
             </nav>
         </div>
+        <!-- SVG is now a direct child of the header -->
+        <svg id="path-svg" class="absolute top-0 left-0 w-full" style="z-index: 10;"></svg>
     </header>
 
     <main id="main-content-container" class="flex-grow container mx-auto px-4 py-8"></main>
