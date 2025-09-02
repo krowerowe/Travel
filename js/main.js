@@ -45,14 +45,15 @@ function drawPath() {
     const svgWidth = lastDotRect.right - firstDotRect.left;
     const svgHeight = navRect.height;
     
+    // Adjusted left position to correctly align with the first dot's container
     pathSvg.style.width = `${svgWidth}px`;
     pathSvg.style.height = `${svgHeight}px`;
-    pathSvg.style.left = `${firstDotRect.left - navRect.left}px`;
+    pathSvg.style.left = `${firstDotRect.left - navRect.left - 5}px`; // Subtracted 5px for a perfect left alignment
     pathSvg.style.top = `0px`;
     pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
     const pathData = [];
-    const curveHeight = svgWidth * 0.15; // Set curve height as a percentage of the width
+    const curveHeight = svgWidth * 0.12; // Slightly reduced curve height for better visual
 
     for (let i = 0; i < dots.length; i++) {
         const dotRect = dots[i].getBoundingClientRect();
