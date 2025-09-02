@@ -30,36 +30,31 @@ function drawPath() {
         return;
     }
 
-    const navList = document.querySelector('.nav-list');
-    const navRect = navList.getBoundingClientRect();
+    const firstDot = dots[0];
+    const firstDotRect = firstDot.getBoundingClientRect();
+    const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
+
+    // Calculate SVG dimensions based on the last dot relative to the first dot
+    const svgWidth = lastDotRect.left - firstDotRect.left;
+    const svgHeight = lastDotRect.height; // Use a consistent height
+
+    pathSvg.style.width = `${svgWidth}px`;
+    pathSvg.style.height = `${svgHeight}px`;
+    pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
     
-    // Check for negative width or height
-    if (navRect.width <= 0 || navRect.height <= 0) {
+    // Check for negative dimensions
+    if (svgWidth <= 0 || svgHeight <= 0) {
         return;
     }
 
-    const firstDotRect = dots[0].getBoundingClientRect();
-    const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
-    
-    // Calculate SVG dimensions
-    const svgWidth = lastDotRect.right - firstDotRect.left;
-    const svgHeight = navRect.height;
-    
-    // Position the SVG container to the exact left of the first dot's container
-    pathSvg.style.width = `${svgWidth}px`;
-    pathSvg.style.height = `${svgHeight}px`;
-    pathSvg.style.left = `${firstDotRect.left - navRect.left}px`;
-    pathSvg.style.top = `0px`;
-    pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
-
     const pathData = [];
-    const curveHeight = svgWidth * 0.10; // Slightly reduced curve height for a better visual
+    const curveHeight = svgWidth * 0.15; // Adjusted curve height for better visual
 
     for (let i = 0; i < dots.length; i++) {
         const dotRect = dots[i].getBoundingClientRect();
-        // Calculate the center point of the dot relative to the SVG container
+        // Calculate the center point of the dot relative to the SVG container (the first nav-item)
         const x = (dotRect.left + dotRect.width / 2) - firstDotRect.left;
-        const y = (dotRect.top + dotRect.height / 2) - navRect.top;
+        const y = (dotRect.top + dotRect.height / 2) - firstDotRect.top;
         pathData.push({ x, y });
     }
 
