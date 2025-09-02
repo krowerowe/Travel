@@ -1,89 +1,105 @@
-/* Base styles for the body and typography */
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Base Styles */
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f7fafc;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Styling for the main header navigation area */
+/* Header and Navigation */
 .map-nav {
-    background: #eef2f3;
-    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="50" x2="100" y2="50" stroke="%23d1d5db" stroke-width="1" stroke-dasharray="2,2" /><line x1="50" y1="0" x2="50" y2="100" stroke="%23d1d5db" stroke-width="1" stroke-dasharray="2,2" /></svg>');
-    background-size: 10px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  position: relative;
+  background-color: #f7fafc;
+  padding: 1rem 0;
+  border-bottom: 2px solid #e2e8f0;
 }
 
-/* Layout for the list of navigation items */
 .nav-list {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 0 1rem;
-    min-height: 150px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Styling for each individual nav item */
 .nav-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex-grow: 1;
-    cursor: pointer;
-    padding-bottom: 40px;
+  text-align: center;
+  position: relative;
+  flex-grow: 1;
+  padding-bottom: 1.5rem;
 }
 
-/* Styling for the navigation links */
 .nav-link {
-    font-weight: bold;
-    color: #4b5563;
-    transition: color 0.3s ease;
-    margin-bottom: 10px;
-    white-space: nowrap;
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
 }
 
-.nav-link:hover {
-    color: #1f2937;
+.nav-item:hover .nav-link {
+  color: #2b6cb0;
 }
 
-/* The blue circle "dot" below each link */
-.dot {
-    width: 15px;
-    height: 15px;
-    background-color: #3b82f6;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-/* The container for the blue map pin SVG */
 .nav-pin-container {
-    position: absolute;
-    bottom: 20px; /* Adjusted to fix pin position */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    pointer-events: none;
-    transition: transform 0.3s ease-out;
-    opacity: 0;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Hides the nav pin on all inactive items */
+.nav-pin-svg {
+  color: #2b6cb0;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+}
+
 .nav-item.active .nav-pin-container {
-    transform: translateX(-50%) translateY(calc(-100% - 30px));
-    opacity: 1;
+  opacity: 1;
 }
 
-/* The SVG container for the blue dotted path */
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
 .dotted-path {
-    position: absolute;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Content Area */
+.content {
+  flex-grow: 1;
 }
