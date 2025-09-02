@@ -48,9 +48,8 @@ function drawPath() {
     // Adjusted left position to correctly align with the first dot's container
     pathSvg.style.width = `${svgWidth}px`;
     pathSvg.style.height = `${svgHeight}px`;
-    pathSvg.style.left = `${firstDotRect.left - navRect.left}px`;
+    pathSvg.style.left = `${(firstDotRect.left - navList.getBoundingClientRect().left) + 12}px`;
     pathSvg.style.top = `0px`;
-    pathSvg.style.transform = `translateX(5px)`; // Using transform for a precise final adjustment
     pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
     const pathData = [];
