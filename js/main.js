@@ -34,8 +34,6 @@ function drawPath() {
     const navBarRect = navBar.getBoundingClientRect();
 
     const pathData = [];
-    let svgWidth = 0;
-    let svgHeight = 0;
     
     // Calculate the precise coordinates of each dot relative to the header.
     for (let i = 0; i < dots.length; i++) {
@@ -46,9 +44,10 @@ function drawPath() {
     }
 
     // Determine the total SVG width and height needed.
-    svgWidth = pathData[pathData.length - 1].x - pathData[0].x;
-    svgHeight = 50; // Use a fixed height for the SVG container.
-
+    const svgWidth = pathData[pathData.length - 1].x - pathData[0].x;
+    const svgHeight = 50; 
+    
+    // Position the SVG container
     pathSvg.style.width = `${svgWidth}px`;
     pathSvg.style.height = `${svgHeight}px`;
     pathSvg.style.left = `${pathData[0].x}px`;
@@ -56,7 +55,7 @@ function drawPath() {
     pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
     const curveHeight = svgWidth * 0.1; // Make the curve proportional to the width.
-
+    
     let pathString = `M 0 0`; // Start at the relative origin of the new SVG.
     for (let i = 1; i < pathData.length; i++) {
         const prevPoint = pathData[i - 1];
