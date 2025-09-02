@@ -49,59 +49,56 @@
         .nav-item.active .dot-pin {
             opacity: 1;
         }
-        .path-svg-container {
-            position: relative;
+        #path-svg {
+            position: absolute;
             z-index: 10;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-    <header class="header shadow-lg py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Global Explorer</h1>
-            <nav class="relative">
-                <ul class="nav-list flex space-x-8">
-                    <li class="nav-item flex flex-col items-center cursor-pointer" data-page="home">
-                        <a href="#home" class="flex flex-col items-center">
-                            <span class="dot"></span>
-                            <span class="text-sm mt-2 font-medium">Home</span>
-                        </a>
-                        <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                        </svg>
-                    </li>
-                    <li class="nav-item flex flex-col items-center cursor-pointer" data-page="countries">
-                        <a href="#countries" class="flex flex-col items-center">
-                            <span class="dot"></span>
-                            <span class="text-sm mt-2 font-medium">Countries</span>
-                        </a>
-                        <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                        </svg>
-                    </li>
-                    <li class="nav-item flex flex-col items-center cursor-pointer" data-page="about">
-                        <a href="#about" class="flex flex-col items-center">
-                            <span class="dot"></span>
-                            <span class="text-sm mt-2 font-medium">About</span>
-                        </a>
-                        <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                        </svg>
-                    </li>
-                    <li class="nav-item flex flex-col items-center cursor-pointer" data-page="contact">
-                        <a href="#contact" class="flex flex-col items-center">
-                            <span class="dot"></span>
-                            <span class="text-sm mt-2 font-medium">Contact</span>
-                        </a>
-                        <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                        </svg>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <!-- SVG is now a direct child of the header -->
-        <svg id="path-svg" class="absolute top-0 left-0 w-full" style="z-index: 10;"></svg>
+    <header class="header shadow-lg py-4 flex flex-col items-center relative">
+        <h1 class="text-2xl font-bold mb-4">Global Explorer</h1>
+        <nav class="relative">
+            <ul class="nav-list flex space-x-8">
+                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="home">
+                    <a href="#home" class="flex flex-col items-center">
+                        <span class="dot"></span>
+                        <span class="text-sm mt-2 font-medium">Home</span>
+                    </a>
+                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                </li>
+                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="countries">
+                    <a href="#countries" class="flex flex-col items-center">
+                        <span class="dot"></span>
+                        <span class="text-sm mt-2 font-medium">Countries</span>
+                    </a>
+                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                </li>
+                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="about">
+                    <a href="#about" class="flex flex-col items-center">
+                        <span class="dot"></span>
+                        <span class="text-sm mt-2 font-medium">About</span>
+                    </a>
+                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                </li>
+                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="contact">
+                    <a href="#contact" class="flex flex-col items-center">
+                        <span class="dot"></span>
+                        <span class="text-sm mt-2 font-medium">Contact</span>
+                    </a>
+                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                </li>
+            </ul>
+        </nav>
+        <svg id="path-svg"></svg>
     </header>
 
     <main id="main-content-container" class="flex-grow container mx-auto px-4 py-8"></main>
