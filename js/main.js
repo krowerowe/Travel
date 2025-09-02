@@ -52,12 +52,11 @@ function drawPath() {
     pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
     const pathData = [];
-    // Adjust curve height based on screen width for a better visual
-    const curveHeight = window.innerWidth > 768 ? 40 : 80;
+    const curveHeight = svgWidth * 0.15; // Set curve height as a percentage of the width
 
     for (let i = 0; i < dots.length; i++) {
         const dotRect = dots[i].getBoundingClientRect();
-        // Calculate the center point of the dot relative to the SVG container's origin
+        // Calculate the center point of the dot relative to the SVG container
         const x = (dotRect.left + dotRect.width / 2) - firstDotRect.left;
         const y = (dotRect.top + dotRect.height / 2) - navRect.top;
         pathData.push({ x, y });
