@@ -5,106 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Explorer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
-        }
-        .header {
-            background-color: #1f2937;
-            color: #f3f4f6;
-        }
-        .nav-item {
-            position: relative;
-        }
-        .nav-item .dot {
-            width: 8px;
-            height: 8px;
-            background-color: #3b82f6;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 20;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        .nav-item .dot-pin {
-            position: absolute;
-            top: -24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            color: #3b82f6;
-            transition: all 0.3s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .nav-item.active .dot {
-            background-color: #f9fafb;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
-        }
-        .nav-item.active .dot-pin {
-            opacity: 1;
-        }
-        #path-svg {
-            position: absolute;
-            z-index: 10;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="flex flex-col min-h-screen">
-    <header class="header shadow-lg py-4 flex flex-col items-center relative">
-        <h1 class="text-2xl font-bold mb-4">Global Explorer</h1>
-        <nav class="relative">
-            <ul class="nav-list flex space-x-8">
-                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="home">
-                    <a href="#home" class="flex flex-col items-center">
-                        <span class="dot"></span>
-                        <span class="text-sm mt-2 font-medium">Home</span>
-                    </a>
-                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
+    <header id="header-container" class="map-nav w-full">
+        <nav class="container mx-auto">
+            <ul class="nav-list">
+                <li class="nav-item active" data-page="home">
+                    <div class="nav-pin-container">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <a href="#home" class="nav-link">Home</a>
+                    <span class="dot"></span>
                 </li>
-                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="countries">
-                    <a href="#countries" class="flex flex-col items-center">
-                        <span class="dot"></span>
-                        <span class="text-sm mt-2 font-medium">Countries</span>
-                    </a>
-                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
+                
+                <li class="nav-item" data-page="countries">
+                    <div class="nav-pin-container">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <a href="#countries" class="nav-link">Countries</a>
+                    <span class="dot"></span>
                 </li>
-                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="about">
-                    <a href="#about" class="flex flex-col items-center">
-                        <span class="dot"></span>
-                        <span class="text-sm mt-2 font-medium">About</span>
-                    </a>
-                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
+                
+                <li class="nav-item" data-page="about">
+                    <div class="nav-pin-container">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <a href="#about" class="nav-link">About</a>
+                    <span class="dot"></span>
                 </li>
-                <li class="nav-item flex flex-col items-center cursor-pointer" data-page="contact">
-                    <a href="#contact" class="flex flex-col items-center">
-                        <span class="dot"></span>
-                        <span class="text-sm mt-2 font-medium">Contact</span>
-                    </a>
-                    <svg class="dot-pin" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a6 6 0 00-6 6c0 4.418 5.485 10.582 6 10.582S16 12.418 16 8a6 6 0 00-6-6zm0 2a4 4 0 110 8 4 4 0 010-8z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
+                
+                <li class="nav-item" data-page="contact">
+                    <div class="nav-pin-container">
+                        <svg class="nav-pin-svg w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <span class="dot"></span>
                 </li>
             </ul>
         </nav>
-        <svg id="path-svg"></svg>
+        <div class="dotted-path">
+            <svg id="path-svg" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
     </header>
 
-    <main id="main-content-container" class="flex-grow container mx-auto px-4 py-8"></main>
+    <main id="main-content-container" class="content container mx-auto p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center"></main>
 
-    <footer id="footer-container"></footer>
+    <footer id="footer-container" class="w-full bg-gray-800 text-white text-center p-4 mt-auto"></footer>
 
-    <script type="module" src="js/main.js"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
