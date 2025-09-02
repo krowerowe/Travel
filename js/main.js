@@ -30,27 +30,28 @@ function drawPath() {
         return;
     }
 
-    const navBar = document.querySelector('header');
-    const navBarRect = navBar.getBoundingClientRect();
+    const header = document.querySelector('header');
+    const headerRect = header.getBoundingClientRect();
+    const navRect = document.querySelector('.nav-list').getBoundingClientRect();
 
     const pathData = [];
     
     // Calculate the precise coordinates of each dot relative to the header.
     for (let i = 0; i < dots.length; i++) {
         const dotRect = dots[i].getBoundingClientRect();
-        const x = dotRect.left + dotRect.width / 2 - navBarRect.left;
-        const y = dotRect.top + dotRect.height / 2 - navBarRect.top;
+        const x = dotRect.left + dotRect.width / 2 - headerRect.left;
+        const y = dotRect.top + dotRect.height / 2 - headerRect.top;
         pathData.push({ x, y });
     }
 
     // Determine the total SVG width and height needed.
-    const svgWidth = pathData[pathData.length - 1].x - pathData[0].x;
+    const svgWidth = navRect.width;
     const svgHeight = 50; 
     
     // Position the SVG container
     pathSvg.style.width = `${svgWidth}px`;
     pathSvg.style.height = `${svgHeight}px`;
-    pathSvg.style.left = `${pathData[0].x}px`;
+    pathSvg.style.left = `${pathData[0].x - navRect.left}px`;
     pathSvg.style.top = `${pathData[0].y}px`;
     pathSvg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
@@ -61,11 +62,13 @@ function drawPath() {
         const prevPoint = pathData[i - 1];
         const currentPoint = pathData[i];
         
-        // Calculate control points for a smooth curve.
-        const controlX = (currentPoint.x - prevPoint.x) / 2;
-        const controlY = curveHeight;
-        
-        pathString += ` C ${controlX} ${controlY}, ${controlX} ${controlY}, ${currentPoint.x - prevPoint.x} ${currentPoint.y - prevPoint.y}`;
+        const controlX1 = prevPoint.x - navRect.left + (currentPoint.x - prevPoint.x) / 2;
+        const controlY1 = currentPoint.y + curveHeight;
+
+        const controlX2 = prevPoint.x - navRect.left + (currentPoint.x - prevPoint.x) / 2;
+        const controlY2 = prevPoint.y - curveHeight;
+
+        pathString += ` C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${currentPoint.x - navRect.left} ${currentPoint.y - navRect.top}`;
     }
 
     pathSvg.innerHTML = `<path d="${pathString}" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8, 8" fill="none"/>`;
