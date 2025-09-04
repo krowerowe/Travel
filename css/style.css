@@ -27,7 +27,6 @@ body {
 
 .nav-wrapper {
   position: relative; /* so dotted path stays under nav only */
-  flex-grow: 1;       /* let nav stretch across */
 }
 
 .nav-list {
