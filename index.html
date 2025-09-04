@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Explorer</title>
+    <title>KROWE Explorer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,13 @@
 </head>
 <body class="flex flex-col min-h-screen">
     <header id="header-container" class="map-nav w-full">
-        <nav class="container mx-auto">
+        <nav class="container mx-auto flex items-center justify-between">
+                <!-- Logo -->
+            <div class="logo flex-shrink-0 mr-6">
+              <img src="images/logo-circle.png" alt="KROWE Logo" class="h-14 w-auto">
+            </div>
+
+                <!-- Navigation -->
             <ul class="nav-list">
                 <li class="nav-item active" data-page="home">
                     <div class="nav-pin-container">
