@@ -12,9 +12,22 @@ body {
 /* Header and Navigation */
 .map-nav {
   position: relative;
+  display: flex;                
+  align-items: center;          
+  justify-content: space-between;
   background-color: #f7fafc;
   padding: 3rem 0;
   border-bottom: 2px solid #e2e8f0;
+}
+
+.logo img {
+  height: 48px;  /* adjust logo size */
+  width: auto;
+}
+
+.nav-wrapper {
+  position: relative; /* so dotted path stays under nav only */
+  flex-grow: 1;       /* let nav stretch across */
 }
 
 .nav-list {
