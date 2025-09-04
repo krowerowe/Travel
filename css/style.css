@@ -21,8 +21,9 @@ body {
 }
 
 .logo img {
-  height: 48px;  /* adjust logo size */
-  width: auto;
+  height: 4rem;   /* adjust size of logo */
+  width: auto;    /* keep proportions */
+  margin: 1rem;   /* 1rem spacing on all sides */
 }
 
 .nav-wrapper {
